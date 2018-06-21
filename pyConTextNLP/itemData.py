@@ -170,3 +170,15 @@ def instantiateFromCSVtoitemData(csvFile, encoding='utf-8',headerRows=1,
         items.append(item)
     f0.close()
     return items
+
+def instantiateFromQuickUMLSResponseToitemData(concept_list):
+    """
+    takes QuickUMLS response in json format
+    """
+    items = itemData()
+    for concept in concept_list:
+        for concept_item in concept:
+            tmp = [concept_item['ngram'], concept_item['cui'], '', '']
+            item = contextItem(tmp)
+            items.append(item)
+    return items
