@@ -1,4 +1,4 @@
-﻿Lex	Type	Regex	Direction	Unnamed: 4	Unnamed: 5	Unnamed: 6	Codes
+Lex	Type	Regex	Direction	Unnamed: 4	Unnamed: 5	Unnamed: 6	Codes
 zijn uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
 worden uitgesloten	INDICATION		backward				
 wordt uitgesloten	INDICATION		backward				
@@ -48,13 +48,13 @@ dubbelzinnig	PROBABLE_EXISTENCE		bidirectional
 evaluatie	INDICATION		bidirectional				
 evoluerende	HISTORICAL		bidirectional				
 genezing	HISTORICAL	\ B (genezing | geheeld) \ b	bidirectional				
-verbeterd	HISTORICAL	verbeterd | verbetering | verbetering	bidirectional			Apr-13	
+verbeterd	HISTORICAL	verbeterd | verbetering | verbetering	bidirectional			4/2013	
 onvolledig geëvalueerd	AMBIVALENT_EXISTENCE		bidirectional	4/29/2013			
 interval verandering	HISTORICAL		bidirectional				
 interval toename	HISTORICAL	(Interval) \ b [\ d \ D \ s] * stijging	bidirectional	4/29/2013			
 minder waarschijnlijk	AMBIVALENT_EXISTENCE		bidirectional	4/29/2013			
 waarschijnlijk	PROBABLE_EXISTENCE		bidirectional				
-waarschijnlijk chronisch	HISTORICAL		bidirectional	2/28/2013	thought of just changing chronic to bidirectional	 but also capture likely	
+waarschijnlijk chronisch	HISTORICAL		bidirectional	2/28/2013	thought of just changing chronic to bidirectional	but also capture likely	
 kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		bidirectional				
 nieuwe	ACUTE		bidirectional				
 nieuw van voorafgaand examen	ACUTE	nieuw van (\ sthe)? voorafgaand (examen | studie)	bidirectional				
@@ -96,7 +96,7 @@ kan niet volledig uitsluiten	PROBABLE_NEGATED_EXISTENCE		forward
 veranderen in	HISTORICAL		forward				
 veranderen	HISTORICAL		forward				
 gecontroleerd voor	PROBABLE_EXISTENCE		forward				
-klinische bezorgdheid	FUTURE	klinisch (bezorgdheid | vermoeden) \ b	forward	2/28/2013	simplified expression 		
+klinische bezorgdheid	FUTURE	klinisch (bezorgdheid | vermoeden) \ b	forward	2/28/2013	simplified expression		
 klinische geschiedenis	HISTORICAL		forward				
 compatibel met	DEFINITE_EXISTENCE		forward				
 betreffende voor	PROBABLE_EXISTENCE		forward				
