@@ -1,0 +1,381 @@
+Lex	Type	Regex	Direction	Unnamed: 4	Unnamed: 5	Unnamed: 6	Codes
+zijn uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+worden uitgesloten	INDICATION		backward				
+wordt uitgesloten	INDICATION		backward				
+kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+kan niet worden uitgesloten	AMBIVALENT_EXISTENCE		backward				
+kan niet volledig worden uitgesloten	PROBABLE_NEGATED_EXISTENCE		backward				
+kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+examen	INDICATION	\ B (onderzoek | examen | studie) \ b	backward				
+gratis	DEFINITE_NEGATED_EXISTENCE		backward				
+is uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+zijn uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+zit in het differentieel	AMBIVALENT_EXISTENCE	is \ sin \ sde \ sdifferential	backward				
+is negatief	DEFINITE_NEGATED_EXISTENCE	(is | was) negatief	backward				
+is niet uitgesloten	AMBIVALENT_EXISTENCE	(Is | was | zijn | waren) \ snot \ sexcluded	backward				
+is niet helemaal uitgesloten	PROBABLE_NEGATED_EXISTENCE	(is | was | are | were | does) \ snot \ s (fully | totally | definitely | completely \ s) uitgesloten	backward	2/28/2013	added definitely	removed ed	
+is aanwezig	DEFINITE_EXISTENCE	(is | zijn) aanwezig	backward	4/29/2013			
+is uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+moet worden uitgesloten	INDICATION		backward				
+is uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+kan worden uitgesloten	PROBABLE_NEGATED_EXISTENCE		backward				
+moet worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+niet uitgesloten	INDICATION		backward				
+niet definitief gezien	PROBABLE_NEGATED_EXISTENCE	niet definitief (gezien | gevisualiseerd)	backward	3/22/2013			
+niet uitgesloten	AMBIVALENT_EXISTENCE	niet \ s (uitgezonderd | regeerde \ zuid)	backward				
+nu meten	HISTORICAL		backward				
+zou moeten worden uitgesloten	INDICATION		backward				
+vorderde	HISTORICAL		backward	3/22/2013			
+protocol	INDICATION		backward				
+opgelost	HISTORICAL		backward				
+moet worden uitgesloten	INDICATION		backward				
+vermoedelijke	PROBABLE_EXISTENCE		backward	4/29/2013			
+onwaarschijnlijk	DEFINITE_NEGATED_EXISTENCE		bidirectional				
+variërende leeftijden	HISTORICAL		backward				
+was uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+zal worden uitgesloten	INDICATION		backward				
+zou niet worden verwacht	PROBABLE_NEGATED_EXISTENCE		backward	2/28/2013			
+acuut	ACUTE		bidirectional				
+nog een keer	HISTORICAL		bidirectional				
+leeftijd onbepaald	HISTORICAL		bidirectional				
+verschijnen	PROBABLE_EXISTENCE	(\ Bappear \ b | \ bappears \ b)	bidirectional				
+kan niet volledig worden uitgesloten	PROBABLE_NEGATED_EXISTENCE	kan niet \ sbe \ s ((volledig | volledig | totaal) \ s)? (uitgesloten | uitgesloten)	bidirectional	2/28/2013			
+kan niet worden geëvalueerd	AMBIVALENT_EXISTENCE		bidirectional	2/28/2013			
+chronisch	HISTORICAL	\ Bchronic [a-z] * \ b	bidirectional	2/28/2013	chronicity: make regular expression to capture variations		
+duidelijk	PROBABLE_NEGATED_EXISTENCE		bidirectional				
+verminderde	HISTORICAL		bidirectional				
+dubbelzinnig	PROBABLE_EXISTENCE		bidirectional				
+evaluatie	INDICATION		bidirectional				
+evoluerende	HISTORICAL		bidirectional				
+genezing	HISTORICAL	\ B (genezing | geheeld) \ b	bidirectional				
+verbeterd	HISTORICAL	verbeterd | verbetering | verbetering	bidirectional			Apr-13	
+onvolledig geëvalueerd	AMBIVALENT_EXISTENCE		bidirectional	4/29/2013			
+interval verandering	HISTORICAL		bidirectional				
+interval toename	HISTORICAL	(Interval) \ b [\ d \ D \ s] * stijging	bidirectional	4/29/2013			
+minder waarschijnlijk	AMBIVALENT_EXISTENCE		bidirectional	4/29/2013			
+waarschijnlijk	PROBABLE_EXISTENCE		bidirectional				
+waarschijnlijk chronisch	HISTORICAL		bidirectional	2/28/2013	thought of just changing chronic to bidirectional	 but also capture likely	
+kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		bidirectional				
+nieuwe	ACUTE		bidirectional				
+nieuw van voorafgaand examen	ACUTE	nieuw van (\ sthe)? voorafgaand (examen | studie)	bidirectional				
+geen verandering in	HISTORICAL	(nee (t)? ([a-zA-z])? verandering (d)? (in)?)	bidirectional	2/28/2013		4/15/2013	
+niet langer genoteerd	DEFINITE_NEGATED_EXISTENCE	niet langer (gezien | opgemerkt | gevisualiseerd)	bidirectional				
+niet	DEFINITE_NEGATED_EXISTENCE	\ Bnot \ b	bidirectional	3/23/2013			
+niet significant veranderd	HISTORICAL		bidirectional				
+oud	HISTORICAL		bidirectional				
+op vorig examen	HISTORICAL	(on | from)? (vorige | voorafgaande) examen	bidirectional	need regular expression			
+aanhoudend	HISTORICAL		bidirectional				
+mogelijk	PROBABLE_EXISTENCE		bidirectional	2/28/2013			
+voorgaand	HISTORICAL		bidirectional	3/21/2013	changed to bidirectional		
+eerder beschreven	HISTORICAL	eerder (beschreven | vermoed)	bidirectional	3/21/2013		3/22/2013	
+voorafgaand	HISTORICAL		bidirectional				
+voorafgaand onderzoek	HISTORICAL		bidirectional				
+waarschijnlijk	PROBABLE_EXISTENCE		bidirectional	3/21/2013			
+twijfelachtig	PROBABLE_NEGATED_EXISTENCE		bidirectional	4/29/2013			
+uitgesloten	DEFINITE_NEGATED_EXISTENCE		bidirectional				
+moet overwogen worden	PROBABLE_EXISTENCE		bidirectional				
+stal	HISTORICAL		bidirectional				
+nog steeds duidelijk	HISTORICAL		bidirectional	4/29/2013			
+subacute	HISTORICAL		bidirectional				
+stel voor	PROBABLE_EXISTENCE	\ Bsuggest [a-z] + \ b	bidirectional				
+onveranderd	HISTORICAL	ongewijzigd | onveranderlijke	bidirectional				
+versus	AMBIVALENT_EXISTENCE		bidirectional				
+afwezigheid van	DEFINITE_NEGATED_EXISTENCE		forward				
+voldoende om de patiënt uit te sluiten	DEFINITE_NEGATED_EXISTENCE		forward				
+lijkt te zijn	DEFINITE_EXISTENCE		forward				
+beoordeling voor	INDICATION		forward				
+in gevaar voor	FUTURE	? (Op \ s) risico \ s (in \ sthe \ sfuture \ s) (voor | van)?	forward	4/29/2013			
+atypisch voor	PROBABLE_NEGATED_EXISTENCE		forward	4/29/2013			
+worden uitgesloten voor	INDICATION		forward				
+kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		forward				
+kan de patiënt regeren	DEFINITE_NEGATED_EXISTENCE	kan regeren (haar | hem | de patiënt) eruit	forward				
+kan niet	AMBIVALENT_EXISTENCE		forward				
+kan niet uitsluiten	AMBIVALENT_EXISTENCE	kan niet \ sexclude	forward				
+kan niet zien	AMBIVALENT_EXISTENCE		forward				
+kan niet volledig uitsluiten	PROBABLE_NEGATED_EXISTENCE		forward				
+veranderen in	HISTORICAL		forward				
+veranderen	HISTORICAL		forward				
+gecontroleerd voor	PROBABLE_EXISTENCE		forward				
+klinische bezorgdheid	FUTURE	klinisch (bezorgdheid | vermoeden) \ b	forward	2/28/2013	simplified expression 		
+klinische geschiedenis	HISTORICAL		forward				
+compatibel met	DEFINITE_EXISTENCE		forward				
+betreffende voor	PROBABLE_EXISTENCE		forward				
+Overeenkomend met	DEFINITE_EXISTENCE		forward	2/14/2013			
+overtuigend	DEFINITE_EXISTENCE		forward				
+kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		forward				
+gedaald	DEFINITE_NEGATED_EXISTENCE		forward				
+dalingen	PROBABLE_NEGATED_EXISTENCE		forward				
+afname van	HISTORICAL		forward		make regular expression to capture variations		
+afname van	HISTORICAL		forward				
+definitief	DEFINITE_EXISTENCE		forward				
+ontkend	PROBABLE_NEGATED_EXISTENCE		forward				
+ontkent	PROBABLE_NEGATED_EXISTENCE		forward				
+ontkennen	PROBABLE_NEGATED_EXISTENCE		forward				
+ontkennen	PROBABLE_NEGATED_EXISTENCE		forward				
+regeerde (de patiënt | hem | haar) uit	DEFINITE_NEGATED_EXISTENCE		forward				
+heeft uitgesloten	DEFINITE_NEGATED_EXISTENCE		forward				
+differentiële diagnose zou omvatten	AMBIVALENT_EXISTENCE	differentiële \ s ((diagnose | overwegingen) \ s) ((zou | kon) \ sinclud [a-z] *)?	forward				
+gedocumenteerd	HISTORICAL		forward				
+evalueren voor	INDICATION		forward				
+evaluatie van	INDICATION	evaluatie \ s (van | voor)	forward				
+bewijsmateriaal	DEFINITE_EXISTENCE		forward				
+keurde haar uit tegen	DEFINITE_NEGATED_EXISTENCE		forward				
+onderzoek voor	INDICATION	(studie | examen | examen) voor	forward				
+niet te onthullen	DEFINITE_NEGATED_EXISTENCE		forward				
+vrij van	DEFINITE_NEGATED_EXISTENCE		forward				
+gram negatief	PSEUDONEG		forward				
+hogere gevoeligheid voor	INDICATION		forward	2/28/2013			
+zeer suggestief	DEFINITE_EXISTENCE		forward	4/29/2013			
+geschiedenis van	HISTORICAL		forward				
+als er zijn	FUTURE		forward	2/28/2013			
+als er bezorgdheid voor is	FUTURE		forward				
+moet worden uitgesloten	INDICATION		forward				
+is gevoeliger	INDICATION	is gevoeliger	forward				
+bekend	HISTORICAL	\ Bknown \ b	forward				
+lage waarschijnlijkheid	PROBABLE_NEGATED_EXISTENCE		forward				
+kan gerelateerd zijn	PROBABLE_EXISTENCE		forward	2/28/2013			
+kan vertegenwoordigen	PROBABLE_EXISTENCE	(Mei | misschien) \ s (vertegenwoordigen | weerspiegelen)	forward				
+kan worden uitgesloten	PROBABLE_NEGATED_EXISTENCE		forward				
+nabootsen	PROBABLE_NEGATED_EXISTENCE		forward	3/22/2013			
+moet worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		forward				
+negatief onderzoek voor	DEFINITE_NEGATED_EXISTENCE	negatief (onderzoek | studie | examen | evaluatie) voor	forward				
+negatief voor	DEFINITE_NEGATED_EXISTENCE		forward				
+nooit ontwikkeld	PROBABLE_NEGATED_EXISTENCE		forward				
+nooit gehad	DEFINITE_NEGATED_EXISTENCE		forward				
+Nee	DEFINITE_NEGATED_EXISTENCE	\ Bno \ b	forward				
+geen abnormaal	DEFINITE_NEGATED_EXISTENCE		forward	2/28/2013	changed from probable to definite		
+geen oorzaak van	PROBABLE_NEGATED_EXISTENCE		forward				
+geen klachten van	AMBIVALENT_EXISTENCE		forward				
+niet overtuigend	PROBABLE_NEGATED_EXISTENCE		forward				
+geen definitief	DEFINITE_NEGATED_EXISTENCE	geen [\ s] * definitief	forward				
+geen definitieve verandering	HISTORICAL		forward	need regular expression			
+geen bewijs van	DEFINITE_NEGATED_EXISTENCE	(Geen | zonder) \ s ((definitieve | andere | definitieve | secundaire | indirect) \ s)? ((Radiografisch | echografische | CT) \ s)? Bewijs \ s (van | voor)	forward	2/28/2013	added other probably consider simplifying re as XYZ		
+geen bevindingen van	PROBABLE_NEGATED_EXISTENCE		forward				
+geen bevindingen om aan te geven	DEFINITE_NEGATED_EXISTENCE		forward				
+geen toename	HISTORICAL		forward	4/16/2013			
+niet nieuw	DEFINITE_NEGATED_EXISTENCE		forward				
+niet duidelijk	PROBABLE_NEGATED_EXISTENCE		forward				
+geen ander	PROBABLE_NEGATED_EXISTENCE		forward				
+geen teken van	PROBABLE_NEGATED_EXISTENCE		forward				
+geen significante	PROBABLE_NEGATED_EXISTENCE		forward				
+geen significante verandering	HISTORICAL		forward				
+geen significante intervalverandering	HISTORICAL		forward				
+geen tekenen	DEFINITE_NEGATED_EXISTENCE	geen teken (s)?	forward				
+geen duidelijke tekenen van	PROBABLE_NEGATED_EXISTENCE	(no | without) (definite | definitive | secondary | indirect) ((radiographic | sonographic | CT) \ s)? signs \ s (van | for)	forward				
+geen suggestie	DEFINITE_NEGATED_EXISTENCE		forward				
+geen verdachte verandering	HISTORICAL		forward	4/16/2013			
+geen XYZ om te suggereren	DEFINITE_NEGATED_EXISTENCE	(\ b (zonder | nee) \ b [\ d \ D \ s] * te suggereren)	forward	2/14/2013			
+noch	PROBABLE_NEGATED_EXISTENCE	\ BNOR \ b	forward				
+niet waarderen	PROBABLE_NEGATED_EXISTENCE		forward				
+niet geassocieerd met	PROBABLE_NEGATED_EXISTENCE		forward				
+geen oorzaak	PSEUDONEG		forward				
+niet zeker of	PSEUDONEG		forward				
+niet duidelijk zichtbaar	PROBABLE_NEGATED_EXISTENCE		forward	3/22/2013			
+niet klagen	PROBABLE_NEGATED_EXISTENCE		forward				
+niet laten zien	DEFINITE_NEGATED_EXISTENCE		forward				
+niet afvoeren	PSEUDONEG		forward				
+niet vertonen	DEFINITE_NEGATED_EXISTENCE		forward				
+niet verlengen	PSEUDONEG		forward				
+niet voelen	PROBABLE_NEGATED_EXISTENCE		forward				
+Niet gehad	DEFINITE_NEGATED_EXISTENCE		forward				
+niet hebben	DEFINITE_NEGATED_EXISTENCE		forward				
+niet weten	AMBIVALENT_EXISTENCE		forward				
+niet bekend te hebben	AMBIVALENT_EXISTENCE		forward				
+niet noodzakelijk	PSEUDONEG		forward				
+niet onthullen	DEFINITE_NEGATED_EXISTENCE		forward				
+niet zien	DEFINITE_NEGATED_EXISTENCE		forward				
+niet zijn	PROBABLE_NEGATED_EXISTENCE		forward				
+niets	PROBABLE_NEGATED_EXISTENCE		forward				
+voor de hand liggend	DEFINITE_EXISTENCE		forward				
+zou moeten worden uitgesloten	INDICATION		forward				
+patiënt was dat niet	DEFINITE_NEGATED_EXISTENCE		forward				
+positieve studie voor	DEFINITE_EXISTENCE	positief (onderzoek | examen | examen) (voor)	forward				
+aanleg voor	FUTURE		forward	2/14/2013			
+progressie van	HISTORICAL	progressie \ s (van | in)	forward				
+liever dan	PROBABLE_EXISTENCE		forward				
+redemonstration	HISTORICAL	(Redemonstrat [a-z] * | redemonstrat [a-z] *)	forward				
+afgelegen	HISTORICAL		forward	2/28/2013	added for Ami's 19649		
+vertegenwoordigt	DEFINITE_EXISTENCE		forward				
+overgebleven	HISTORICAL		forward				
+resolutie van	HISTORICAL		forward				
+oplossen	HISTORICAL		forward				
+haar uitsluiten	INDICATION		forward				
+hem uitsluiten	INDICATION		forward				
+hem uitsluiten	INDICATION		forward				
+uitsluiten	INDICATION	(r / o | rule out | \ br o \ b | r \ .o \. | \ bro \ b)	forward				
+uitsluiten voor	INDICATION		forward				
+regel de patiënt uit voor	INDICATION	regeren (hem | haar | patiënt | het patiënt | subject) uit	forward				
+regel de patiënt eruit	INDICATION		forward				
+regel de patiënt uit voor	INDICATION		forward				
+regeerde haar uit tegen	DEFINITE_NEGATED_EXISTENCE	regeerde \ s (hem | haar | het onderwerp | de patiënt | subject | patiënt) \ sout (tegen | for)?	forward	4/16/2013			
+uitgesloten tegen	DEFINITE_NEGATED_EXISTENCE		forward				
+uitgesloten voor	DEFINITE_NEGATED_EXISTENCE		forward				
+sluit haar uit	DEFINITE_NEGATED_EXISTENCE		forward				
+regeert haar uit voor	DEFINITE_NEGATED_EXISTENCE	regels \ s (hem | haar) \ zuid \ sfor	forward				
+regeert hem uit	DEFINITE_NEGATED_EXISTENCE	regels \ s (hem | haar) \ zuid	forward				
+regeert hem uit voor	DEFINITE_NEGATED_EXISTENCE	regels \ s (hem | haar) \ zuid \ sfor	forward				
+uitsluiten	DEFINITE_NEGATED_EXISTENCE		forward				
+uitsluit voor	DEFINITE_NEGATED_EXISTENCE		forward				
+regelt de patiënt eruit	DEFINITE_NEGATED_EXISTENCE		forward				
+regeert de patiënt uit voor	DEFINITE_NEGATED_EXISTENCE		forward				
+gevolgen van	HISTORICAL		forward				
+moet worden uitgesloten	INDICATION		forward				
+simuleren	PROBABLE_NEGATED_EXISTENCE		forward	3/22/2013			
+onderzoek voor detectie	INDICATION		forward				
+voldoende om uit te sluiten	DEFINITE_NEGATED_EXISTENCE	voldoende \ sto \ srule \ s ((haar | hij | de patiënt | het onderwerp) \ s)? uit	forward				
+verdacht	PROBABLE_EXISTENCE		forward				
+suspicous	PROBABLE_EXISTENCE		forward				
+test voor	AMBIVALENT_EXISTENCE		forward				
+uitsluiten	PROBABLE_NEGATED_EXISTENCE		forward				
+niet in staat om adequaat te beoordelen	AMBIVALENT_EXISTENCE		forward				
+niet in staat om te beoordelen	AMBIVALENT_EXISTENCE		forward				
+onopvallend voor	DEFINITE_NEGATED_EXISTENCE		forward				
+gewaarschuwd voor	FUTURE		forward	3/22/2013			
+waren gewaarschuwd	FUTURE		forward				
+wat moet worden uitgesloten is	INDICATION		forward				
+zal worden uitgesloten	INDICATION		forward				
+zonder	DEFINITE_NEGATED_EXISTENCE		forward				
+zonder	DEFINITE_NEGATED_EXISTENCE		forward				
+zonder moeilijkheid	PSEUDONEG		forward				
+zonder indicatie	PROBABLE_NEGATED_EXISTENCE		forward				
+zonder teken	DEFINITE_NEGATED_EXISTENCE	zonder teken (s)?	forward				
+zorgelijk	PROBABLE_EXISTENCE		forward				
+#NAAM?	DEFINITE_NEGATED_EXISTENCE		forward				
+hoewel	CONJ		terminate				
+losstaand van	CONJ		terminate				
+als een oorzaak voor	CONJ		terminate				
+als een oorzaak van	CONJ		terminate				
+als een etiologie voor	CONJ		terminate				
+als een etiologie van	CONJ		terminate				
+als een reden voor	CONJ		terminate				
+als een reden van	CONJ		terminate				
+als een secundaire oorzaak voor	CONJ		terminate				
+als een secundaire oorzaak van	CONJ		terminate				
+als een secundaire etiologie voor	CONJ		terminate				
+als een secundaire etiologie van	CONJ		terminate				
+als een secundaire oorsprong voor	CONJ		terminate				
+als een secundaire oorsprong van	CONJ		terminate				
+als een secundaire reden voor	CONJ		terminate				
+als een secundaire reden van	CONJ		terminate				
+als een secundaire bron voor	CONJ		terminate				
+als een secundaire bron van	CONJ		terminate				
+als een bron voor	CONJ		terminate				
+als een bron van	CONJ		terminate				
+als een oorzaak voor	CONJ		terminate				
+als een oorzaak van	CONJ		terminate				
+als een etiologie voor	CONJ		terminate				
+als een etiologie van	CONJ		terminate				
+als een oorsprong voor	CONJ		terminate				
+als een oorsprong van	CONJ		terminate				
+als een reden voor	CONJ		terminate				
+als een reden van	CONJ		terminate				
+als een secundaire oorzaak voor	CONJ		terminate				
+als een secundaire oorzaak van	CONJ		terminate				
+als een secundaire etiologie voor	CONJ		terminate				
+als een secundaire etiologie van	CONJ		terminate				
+als een secundaire oorsprong voor	CONJ		terminate				
+als een secundaire oorsprong van	CONJ		terminate				
+als een secundaire reden voor	CONJ		terminate				
+als een secundaire reden van	CONJ		terminate				
+als een secundaire bron voor	CONJ		terminate				
+als een secundaire bron van	CONJ		terminate				
+als een bron voor	CONJ		terminate				
+als een bron van	CONJ		terminate				
+als de oorzaak voor	CONJ		terminate				
+als de oorzaak van	CONJ		terminate				
+als de etiologie voor	CONJ		terminate				
+als de etiologie van	CONJ		terminate				
+als de oorsprong voor	CONJ		terminate				
+als de oorsprong van	CONJ		terminate				
+als de reden voor	CONJ		terminate				
+als de reden van	CONJ		terminate				
+als de secundaire oorzaak voor	CONJ		terminate				
+als de secundaire oorzaak van	CONJ		terminate				
+als de secundaire etiologie voor	CONJ		terminate				
+als de secundaire etiologie van	CONJ		terminate				
+als de secundaire oorsprong voor	CONJ		terminate				
+als de secundaire oorsprong van	CONJ		terminate				
+als de secundaire reden voor	CONJ		terminate				
+als de secundaire reden van	CONJ		terminate				
+als de secundaire bron voor	CONJ		terminate				
+als de secundaire bron van	CONJ		terminate				
+als de bron voor	CONJ		terminate				
+als de bron van	CONJ		terminate				
+zoals er zijn	CONJ		terminate	2/14/2013			
+behalve	CONJ		terminate				
+maar	CONJ		terminate				
+oorzaak van	CONJ		terminate				
+oorzaak van	CONJ		terminate				
+oorzaken voor	CONJ		terminate				
+oorzaken van	CONJ		terminate				
+etiologie voor	CONJ		terminate				
+etiologie van	CONJ		terminate				
+behalve	CONJ		terminate				
+echter	CONJ		terminate				
+erbij betrekken	CONJ		terminate				
+niettemin	CONJ		terminate				
+oorsprong voor	CONJ		terminate				
+oorsprong van	CONJ		terminate				
+oorsprong voor	CONJ		terminate				
+oorsprong van	CONJ		terminate				
+andere mogelijkheden van	CONJ		terminate				
+reden voor	CONJ		terminate				
+reden van	CONJ		terminate				
+redenen voor	CONJ		terminate				
+redenen van	CONJ		terminate				
+ondergeschikt aan	CONJ		terminate				
+bron voor	CONJ		terminate				
+bron van	CONJ		terminate				
+bronnen voor	CONJ		terminate				
+bronnen van	CONJ		terminate				
+nog steeds	CONJ		terminate				
+hoewel	CONJ		terminate				
+trigger evenement voor	CONJ		terminate				
+welke	CONJ		terminate				
+nog	CONJ		terminate				
+(nee | niets) overtuigend	DEFINITE_NEGATED_EXISTENCE		forward				
+(de patiënt | hem | haar) was dat niet	DEFINITE_NEGATED_EXISTENCE		forward				
+als een suggestie	PROBABLE_EXISTENCE		bidirectional				
+geassocieerd met	PROBABLE_EXISTENCE		forward				
+geloven	DEFINITE_EXISTENCE		bidirectional				
+grens	AMBIVALENT_EXISTENCE		bidirectional				
+kan uitsluiten	DEFINITE_NEGATED_EXISTENCE		forward				
+kan uitsluiten	DEFINITE_NEGATED_EXISTENCE		forward				
+kan uitsluiten voor	DEFINITE_NEGATED_EXISTENCE		forward				
+kan zien	DEFINITE_EXISTENCE		forward				
+kan niet uitsluiten	AMBIVALENT_EXISTENCE	kan niet regeren (de patiënt | hem | haar)? uit	forward				
+volledig uitgesloten	DEFINITE_NEGATED_EXISTENCE	(Volledig | totaal)? uitgesloten	backward				
+opgevat als	PROBABLE_EXISTENCE		bidirectional				
+zou kunnen	PROBABLE_EXISTENCE		forward				
+kon niet worden geregeerd	AMBIVALENT_EXISTENCE		bidirectional				
+zou kunnen vertegenwoordigen	PROBABLE_EXISTENCE		forward				
+dubbelzinnig	AMBIVALENT_EXISTENCE		bidirectional				
+elke indicatie	PROBABLE_EXISTENCE		forward				
+uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
+tentoonstellen	PROBABLE_EXISTENCE		bidirectional				
+grof bewijsmateriaal	DEFINITE_EXISTENCE		forward				
+grote kans	DEFINITE_EXISTENCE		bidirectional				
+zeer aarzelend	AMBIVALENT_EXISTENCE		bidirectional				
+aanwijzing	AMBIVALENT_EXISTENCE		bidirectional				
+onvoldoende om te regeren (de patiënt | hem | haar) uit	AMBIVALENT_EXISTENCE		forward				
+is positief	DEFINITE_EXISTENCE		bidirectional				
+geen ander bewijs (CT | radiografie | sonographic | MR | etc)	PROBABLE_NEGATED_EXISTENCE		forward				
+geen secundaire (CT | radiografische | sonographic | MR | etc) -borden	PROBABLE_NEGATED_EXISTENCE		forward				
+geen achterdochtig	PROBABLE_NEGATED_EXISTENCE		forward				
+niet toereikend om uit te sluiten	AMBIVALENT_EXISTENCE	niet toereikend om te regeren ((de patiënt | hem | haar) \ s)? uit	forward				
+niet aannemelijk	DEFINITE_NEGATED_EXISTENCE		bidirectional				
+niet alleen	PSEUDONEG		forward				
+onthult	DEFINITE_EXISTENCE		forward				
+het beste gezien	PROBABLE_EXISTENCE		backward				
+tekenen van	PROBABLE_EXISTENCE		bidirectional				
+was niet uitgesloten	AMBIVALENT_EXISTENCE	(was | zijn | waren ) niet uitgesloten	backward				
+als	HYPOTHETICAL		forward				
+kleiner worden	HISTORICAL	daling | daalde | afnemende | reductie | verlaagde	bidirectional				
+toename	HISTORICAL	verhogen | toenemende | verhoogd	bidirectional				
+mogelijk	PROBABLE_EXISTENCE		forward				
+verminder de waarschijnlijkheid	PROBABLE_NEGATED_EXISTENCE	decreas [a-z] + (\ sde)? waarschijnlijkheid	forward				
+verdachte	PROBABLE_EXISTENCE		forward				
+waarschijnlijk vertegenwoordigt	PROBABLE_EXISTENCE	waarschijnlijk (vertegenwoordigt | vertegenwoordigt)	forward				
+zonder verandering	HISTORICAL		backwards				
+risico factor	FUTURE	risicofactor(en)?	bidirectional				
+gunst	PROBABLE_EXISTENCE		bidirectional				
