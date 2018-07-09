@@ -31,7 +31,7 @@ opgelost	HISTORICAL		backward
 moet worden uitgesloten	INDICATION		backward				
 vermoedelijke	PROBABLE_EXISTENCE		backward	4/29/2013			
 onwaarschijnlijk	DEFINITE_NEGATED_EXISTENCE		bidirectional				
-vari�rende leeftijden	HISTORICAL		backward				
+variërende leeftijden	HISTORICAL		backward				
 was uitgesloten	DEFINITE_NEGATED_EXISTENCE		backward				
 zal worden uitgesloten	INDICATION		backward				
 zou niet worden verwacht	PROBABLE_NEGATED_EXISTENCE		backward	2/28/2013			
@@ -207,7 +207,7 @@ uitsluiten voor	INDICATION		forward
 regel de patiënt uit voor	INDICATION	regeren (hem | haar | patiënt | het patiënt | subject) uit	forward				
 regel de patiënt eruit	INDICATION		forward				
 regel de patiënt uit voor	INDICATION		forward				
-regeerde haar uit tegen	DEFINITE_NEGATED_EXISTENCE	regeerde \ s (hem | haar | het onderwerp | de pati�nt | subject | pati�nt) \ sout (tegen | for)?	forward	4/16/2013			
+regeerde haar uit tegen	DEFINITE_NEGATED_EXISTENCE	regeerde \ s (hem | haar | het onderwerp | de patiënt | subject | patiënt) \ sout (tegen | for)?	forward	4/16/2013			
 uitgesloten tegen	DEFINITE_NEGATED_EXISTENCE		forward				
 uitgesloten voor	DEFINITE_NEGATED_EXISTENCE		forward				
 sluit haar uit	DEFINITE_NEGATED_EXISTENCE		forward				
@@ -222,7 +222,7 @@ gevolgen van	HISTORICAL		forward
 moet worden uitgesloten	INDICATION		forward				
 simuleren	PROBABLE_NEGATED_EXISTENCE		forward	3/22/2013			
 onderzoek voor detectie	INDICATION		forward				
-voldoende om uit te sluiten	DEFINITE_NEGATED_EXISTENCE	voldoende \ sto \ srule \ s ((haar | hij | de pati�nt | het onderwerp) \ s)? uit	forward				
+voldoende om uit te sluiten	DEFINITE_NEGATED_EXISTENCE	voldoende \ sto \ srule \ s ((haar | hij | de patiënt | het onderwerp) \ s)? uit	forward				
 verdacht	PROBABLE_EXISTENCE		forward				
 suspicous	PROBABLE_EXISTENCE		forward				
 test voor	AMBIVALENT_EXISTENCE		forward				
@@ -362,7 +362,7 @@ is positief	DEFINITE_EXISTENCE		bidirectional
 geen ander bewijs (CT | radiografie | sonographic | MR | etc)	PROBABLE_NEGATED_EXISTENCE		forward				
 geen secundaire (CT | radiografische | sonographic | MR | etc) -borden	PROBABLE_NEGATED_EXISTENCE		forward				
 geen achterdochtig	PROBABLE_NEGATED_EXISTENCE		forward				
-niet toereikend om uit te sluiten	AMBIVALENT_EXISTENCE	niet toereikend om te regeren ((de pati�nt | hem | haar) \ s)? uit	forward				
+niet toereikend om uit te sluiten	AMBIVALENT_EXISTENCE	niet toereikend om te regeren ((de patiënt | hem | haar) \ s)? uit	forward				
 niet aannemelijk	DEFINITE_NEGATED_EXISTENCE		bidirectional				
 niet alleen	PSEUDONEG		forward				
 onthult	DEFINITE_EXISTENCE		forward				
