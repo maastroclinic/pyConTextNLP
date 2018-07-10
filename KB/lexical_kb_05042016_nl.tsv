@@ -48,13 +48,13 @@ dubbelzinnig	PROBABLE_EXISTENCE		bidirectional
 evaluatie	INDICATION		bidirectional				
 evoluerende	HISTORICAL		bidirectional				
 genezing	HISTORICAL	\b(genezing|genezen|geheeld)\b	bidirectional				
-verbeterd	HISTORICAL	verbeterd|verbetering|verbetering	bidirectional			4/2018	
+verbeterd	HISTORICAL	verbeterd|verbetering|verbetering	bidirectional			13-Apr	
 onvolledig geëvalueerd	AMBIVALENT_EXISTENCE		bidirectional	4/29/2013			
 interval verandering	HISTORICAL		bidirectional				
 interval toename	HISTORICAL	(interval)\b[\d\D\s]*(stijging|toename)	bidirectional	4/29/2013			
 minder waarschijnlijk	AMBIVALENT_EXISTENCE		bidirectional	4/29/2013			
 waarschijnlijk	PROBABLE_EXISTENCE		bidirectional				
-waarschijnlijk chronisch	HISTORICAL		bidirectional	2/28/2013	thought of just changing chronic to bidirectional	but also capture likely	
+waarschijnlijk chronisch	HISTORICAL		bidirectional	2/28/2013	thought of just changing chronic to bidirectional	 but also capture likely	
 kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		bidirectional				
 nieuwe	ACUTE		bidirectional				
 nieuw van voorafgaand examen	ACUTE	nieuw van(\sthe)? voorafgaande (examen|studie)	bidirectional				
@@ -84,19 +84,19 @@ afwezigheid van	DEFINITE_NEGATED_EXISTENCE		forward
 voldoende om de patiënt uit te sluiten	DEFINITE_NEGATED_EXISTENCE		forward				
 lijkt te zijn	DEFINITE_EXISTENCE		forward				
 beoordeling voor	INDICATION		forward				
-in gevaar voor	FUTURE	? (Op \ s) risico \ s (in \ sthe \ sfuture \ s) (voor | van)?	forward	4/29/2013			
+met gevaar voor	FUTURE	(met\s)?risico\s(in\sde\stoekomst\s)(voor|van)?	forward	4/29/2013
 atypisch voor	PROBABLE_NEGATED_EXISTENCE		forward	4/29/2013			
 worden uitgesloten voor	INDICATION		forward				
 kan worden uitgesloten	DEFINITE_NEGATED_EXISTENCE		forward				
-kan de patiënt regeren	DEFINITE_NEGATED_EXISTENCE	kan regeren (haar|hem|de patiënt) eruit	forward				
-kan niet	AMBIVALENT_EXISTENCE		forward				
+kan de patiënt uitsluiten	DEFINITE_NEGATED_EXISTENCE	kan (haar|hem|de patiënt) uitsluiten 	forward
+kan niet	AMBIVALENT_EXISTENCE	kan regeren (haar|hem|de patiënt) eruit	forward
 kan niet uitsluiten	AMBIVALENT_EXISTENCE	kan\sniet\suitsluiten	forward				
 kan niet zien	AMBIVALENT_EXISTENCE		forward				
 kan niet volledig uitsluiten	PROBABLE_NEGATED_EXISTENCE		forward				
 veranderen in	HISTORICAL		forward				
 veranderen	HISTORICAL		forward				
 gecontroleerd voor	PROBABLE_EXISTENCE		forward				
-klinische bezorgdheid	FUTURE	klinisch (bezorgdheid|vermoeden)\b	forward	2/28/2013	simplified expression		
+klinische bezorgdheid	FUTURE	klinisch (bezorgdheid|vermoeden)\b	forward	2/28/2013	simplified expression 		
 klinische geschiedenis	HISTORICAL		forward				
 compatibel met	DEFINITE_EXISTENCE		forward				
 betreffende voor	PROBABLE_EXISTENCE		forward				
@@ -117,7 +117,7 @@ heeft uitgesloten	DEFINITE_NEGATED_EXISTENCE		forward
 differentiële diagnose zou omvatten	AMBIVALENT_EXISTENCE	differentiële\s((diagnose|overwegingen)\s)?((zou|kon)\sincluderen[a-z]*)?	forward				
 gedocumenteerd	HISTORICAL		forward				
 evalueren voor	INDICATION		forward				
-evaluatie van	INDICATION	evaluatie\s (van|voor)	forward				
+evaluatie van	INDICATION	evaluatie\s(van|voor)	forward
 bewijsmateriaal	DEFINITE_EXISTENCE		forward				
 keurde haar uit tegen	DEFINITE_NEGATED_EXISTENCE		forward				
 onderzoek voor	INDICATION	(studie|examen|onderzoek) voor	forward				
@@ -207,12 +207,12 @@ uitsluiten voor	INDICATION		forward
 sluit de patiënt uit voor	INDICATION	sluit (hem|haar|patiënt|de patiënt|onderwerp) uit	forward				
 sluit de patiënt eruit	INDICATION		forward				
 sluit de patiënt uit voor	INDICATION		forward				
-sluit haar uit van	DEFINITE_NEGATED_EXISTENCE	sluit\s(hem|haar|het onderwerp|de patiënt|subject|patiënt)\suit(tegen|van|voor)?	forward	4/16/2013			
+sluit haar uit van	DEFINITE_NEGATED_EXISTENCE	sluit\s(hem|haar|het onderwerp|de patiënt|subject|patiënt)\suit( tegen| van| voor)?	forward	4/16/2013			
 uitgesloten tegen	DEFINITE_NEGATED_EXISTENCE		forward				
 uitgesloten voor	DEFINITE_NEGATED_EXISTENCE		forward				
 sluit haar uit	DEFINITE_NEGATED_EXISTENCE		forward				
 sluit haar uit voor	DEFINITE_NEGATED_EXISTENCE	sluit\s(hem|haar)\suit\svan	forward				
-sluit hem uit	DEFINITE_NEGATED_EXISTENCE	sluit\s(hem|haar)\uit	forward				
+sluit hem uit	DEFINITE_NEGATED_EXISTENCE	sluit\s(hem|haar)\suit	forward				
 regeert hem uit voor	DEFINITE_NEGATED_EXISTENCE	sluit\s(hem|haar)\suit\svoor	forward				
 uitsluiten	DEFINITE_NEGATED_EXISTENCE		forward				
 uitsluit voor	DEFINITE_NEGATED_EXISTENCE		forward				
