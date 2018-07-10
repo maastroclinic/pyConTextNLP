@@ -2,9 +2,13 @@ import pyConTextNLP.pyConTextGraph as pyConText
 import pyConTextNLP.itemData as itemData
 import networkx as nx
 import json
+import pathlib
+import os
 
-modifiers = itemData.instantiateFromCSVtoitemData(
-    "https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/lexical_kb_05042016.tsv")
+absolute_path_string_abspath = os.path.abspath("..\..\KB\lexical_kb_04292013.tsv")
+print(absolute_path_string_abspath)
+
+modifiers = itemData.instantiateFromCSVtoitemData(pathlib.Path(absolute_path_string_abspath).as_uri())
 
 data_result = ""
 with open('data_result.txt') as json_file:
