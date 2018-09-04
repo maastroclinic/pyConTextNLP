@@ -3,7 +3,6 @@ import os
 import pathlib
 import unittest
 
-import networkx as nx
 import nltk
 from IPython.display import HTML
 from textblob import TextBlob
@@ -14,11 +13,11 @@ import pyConTextNLP.pyConTextGraph as pyConText
 
 nltk.download('punkt')
 
-path_report = 'report.txt'
-path_targets_quickumls = 'report_quickumls_out.json'
-path_modifiers_kb = "..\..\KB\lexical_kb_05042016_nl.tsv"
-path_result_pycontextnlp_xml = 'report_pycontextnlp_out.xml'
-
+path_report = '..\\resources\\report.txt'
+path_targets_quickumls = '..\\resources\\report_quickumls_out.json'
+path_modifiers_kb = '..\\..\\KB\\lexical_kb_05042016_nl.tsv'
+path_result_pycontextnlp_xml = '..\\resources\\report_pycontextnlp_out.xml'
+path_result_pycontextnlp_html = '..\\resources\\report_pycontextnlp_out.html'
 
 class TestQuickUMLSIntegration(unittest.TestCase):
 
@@ -30,6 +29,7 @@ class TestQuickUMLSIntegration(unittest.TestCase):
         self.load_data_files()
         context = perform_py_context_nlp(self.report, self.modifiers, self.targets)
         write_result_xml(context, path_result_pycontextnlp_xml)
+        # write_result_html(context, path_result_pycontextnlp_html)
 
     def load_data_files(self):
         absolute_path_string_abspath = os.path.abspath(path_modifiers_kb)
