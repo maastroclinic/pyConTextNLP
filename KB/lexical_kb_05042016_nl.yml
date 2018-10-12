@@ -1,0 +1,59 @@
+Comments: ''
+Direction: backward
+Lex: zijn uitgesloten
+Regex: ''
+Type: DEFINITE_NEGATED_EXISTENCE
+---
+Comments: ''
+Direction: backward
+Lex: worden uitgesloten
+Regex: ''
+Type: INDICATION
+---
+Comments: ''
+Direction: backward
+Lex: wordt uitgesloten
+Regex: ''
+Type: INDICATION
+---
+Comments: ''
+Direction: backward
+Lex: kan worden uitgesloten
+Regex: ''
+Type: DEFINITE_NEGATED_EXISTENCE
+---
+Comments: ''
+Direction: backward
+Lex: kan niet worden uitgesloten
+Regex: ''
+Type: AMBIVALENT_EXISTENCE
+---
+Comments: ''
+Direction: backward
+Lex: kan niet volledig worden uitgesloten
+Regex: ''
+Type: PROBABLE_NEGATED_EXISTENCE
+---
+Comments: ''
+Direction: backward
+Lex: kan worden uitgesloten
+Regex: ''
+Type: DEFINITE_NEGATED_EXISTENCE
+---
+Comments: ''
+Direction: backward
+Lex: examen
+Regex: '\b(onderzoek|examen|studie)\b'
+Type: INDICATION
+---
+Comments: ''
+Direction: backward
+Lex: examen
+Regex: '\b(onderzoek|examen|studie)\b'
+Type: INDICATION
+---
+Comments: ''
+Direction: forward
+Lex: geen
+Regex: ''
+Type: DEFINITE_NEGATED_EXISTENCE

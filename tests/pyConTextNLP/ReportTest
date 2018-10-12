@@ -3,14 +3,19 @@ import pyConTextNLP.itemData as itemData
 from textblob import TextBlob
 import pyConTextNLP.display.html as html
 import json
+import os
+import pathlib
+
+
 
 report = ""
 with open('../resources/ignored/report_nl.txt', 'r') as report_file:
     report = report_file.read()
 print(report)
 
-modifiers = itemData.get_items(
-    "https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/lexical_kb_05042016.yml")
+path_modifiers_kb = "../../KB/lexical_kb_05042016_nl.yml"
+absolute_path_string_abspath = os.path.abspath(path_modifiers_kb)
+modifiers = itemData.get_items(pathlib.Path(absolute_path_string_abspath).as_uri())
 
 # ///// targets /////
 targets = itemData.get_items(
