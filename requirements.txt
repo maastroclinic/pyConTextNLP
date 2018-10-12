@@ -1,0 +1,6 @@
+textblob
+networkx
+pyyaml
+
+
+python -m textblob.download_corpora
