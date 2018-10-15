@@ -72,18 +72,16 @@ clrs = { \
         "acute": "golden"
     }
 
-#display(HTML(html.mark_document_with_html(context,colors = clrs, default_color="black")))
+print(context.getXML())
 
-#print(context.getXML())
+htmlfile = html.mark_document_with_html(context, colors=clrs, default_color="brown")
 
-htmlfile = html.mark_document_with_html(context,colors = clrs, default_color="brown")
-
-f = open('../resources/out/output.html','w')
+f = open('../resources/out/output.html', 'w')
 
 message = """<html>
 <head></head>
 <body>"""+htmlfile+"""</body>
-</html>""";
+</html>"""
 
 f.write(message)
 f.close()
