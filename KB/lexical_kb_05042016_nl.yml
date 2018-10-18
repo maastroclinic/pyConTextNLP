@@ -3417,22 +3417,12 @@
   Unnamed-5: ""
   Unnamed-6: ""
   Codes: ""
-#---
-#  Lex: geen
-#  Type: PROBABLE_NEGATED_EXISTENCE
-#  Regex: \bgeen\b
-#  Direction: forward
-#  Unnamed-4: ""
-#  Unnamed-5: ""
-#  Unnamed-6: ""
-#  Codes: ""
-#---
-#  Lex: ""
-#  Type: null
-#  Regex: null
-#  Direction: null
-#  Unnamed-4: null
-#  Unnamed-5: null
-#  Unnamed-6: null
-#  Codes: ""
-#
+---
+  Lex: geen
+  Type: PROBABLE_NEGATED_EXISTENCE
+  Regex: \bgeen\b
+  Direction: forward
+  Unnamed-4: ""
+  Unnamed-5: ""
+  Unnamed-6: ""
+  Codes: ""
