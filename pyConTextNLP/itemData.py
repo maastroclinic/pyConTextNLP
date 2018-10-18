@@ -81,17 +81,3 @@ class contextItem(object):
         return txt
     def __repr__(self):
         return self.__str__()
-
-
-def get_items_quickumls(concept_list):
-    """
-    takes QuickUMLS response in json format
-    """
-    context_items = []
-
-    for concept in concept_list:
-        for concept_item in concept:
-            tmp = [concept_item['ngram'], concept_item['cui'], '', '']
-            item = contextItem(tmp)
-            context_items.append(item)
-    return context_items

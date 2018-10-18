@@ -2,6 +2,8 @@ import pyConTextNLP.pyConText as pyConText
 import pyConTextNLP.itemData as itemData
 from textblob import TextBlob
 import pyConTextNLP.display.html as html
+import pyConTextNLP.io.quickumlsio as quickumlsio
+
 import json
 import os
 import pathlib
@@ -25,9 +27,9 @@ quickumls_json = ""
 with open('../resources/quickumls_response.json') as json_file:
     quickumls_json = json.load(json_file)
 
-targets_quickumls = itemData.get_items_quickumls(quickumls_json['response'])
-merged_targets = targets + targets_quickumls
-
+targets_quickumls = quickumlsio.get_items_quickumls(quickumls_json['response'])
+# merged_targets = targets + targets_quickumls
+merged_targets = targets_quickumls
 
 def markup_sentence(s, modifiers, targets, prune_inactive=True):
     """
@@ -72,7 +74,12 @@ clrs = { \
         "acute": "golden"
     }
 
-print(context.getXML())
+# print(context.getXML())
+
+quickumlsio.getContextConcepts(context, rslts, quickumls_json['response'])
+
+# for n in context.getSectionNodes(None, 'c2939419'):
+#     print(n)
 
 htmlfile = html.mark_document_with_html(context, colors=clrs, default_color="brown")
 
