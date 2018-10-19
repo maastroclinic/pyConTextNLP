@@ -48,20 +48,8 @@ def markup_sentence(s, modifiers, targets, prune_inactive=True):
         markup.dropInactiveModifiers()
     return markup
 
-
-context = pyConText.ConTextDocument()
-
-blob = TextBlob(report.lower())
-count = 0
-rslts = []
-for s in blob.sentences:
-    m = markup_sentence(s.raw, modifiers=modifiers, targets=merged_targets)
-    rslts.append(m)
-
-for r in rslts:
-    context.addMarkup(r)
-
-clrs = { \
+def get_html():
+    clrs = { \
         "bowel_obstruction": "blue",
         "inflammation": "blue",
         "definite_negated_existence": "red",
@@ -74,21 +62,30 @@ clrs = { \
         "acute": "golden"
     }
 
-# print(context.getXML())
+    htmlfile = html.mark_document_with_html(context, colors=clrs, default_color="brown")
 
-quickumlsio.getContextConcepts(context, rslts, quickumls_json['response'])
+    return """<html>
+        <head>
+        </head>
+        <body>"""+htmlfile+"""</body>
+        </html>"""
 
-# for n in context.getSectionNodes(None, 'c2939419'):
-#     print(n)
+context = pyConText.ConTextDocument()
 
-htmlfile = html.mark_document_with_html(context, colors=clrs, default_color="brown")
+blob = TextBlob(report.lower())
+rslts = []
+for s in blob.sentences:
+    m = markup_sentence(s.raw, modifiers=modifiers, targets=merged_targets)
+    rslts.append(m)
+
+for r in rslts:
+    context.addMarkup(r)
 
 f = open('../resources/out/output.html', 'w')
+f.write(get_html())
+f.close()
 
-message = """<html>
-<head></head>
-<body>"""+htmlfile+"""</body>
-</html>"""
-
-f.write(message)
+context_concepts = quickumlsio.getContextConcepts(rslts, quickumls_json['response'], rule_info=False)
+f = open('../resources/out/concepts.json', 'w')
+f.write(json.dumps(context_concepts))
 f.close()

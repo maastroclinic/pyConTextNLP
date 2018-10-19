@@ -17,7 +17,7 @@ def get_items_quickumls(concept_list):
             context_items.append(item)
     return context_items
 
-def getContextConcepts(context, rslts, concept_list):
+def getContextConcepts(rslts, concept_list, rule_info):
 
     concepts_flatlist = getFlatListConcepts(concept_list)
     print('concepts to match:', len(concepts_flatlist))
@@ -55,8 +55,11 @@ def getContextConcepts(context, rslts, concept_list):
                         for tag in edge:
                             if tag._tagObject__ConTextCategory == 'modifier':
                                 concept['modifier_category'] = tag._tagObject__category
-                                concept['modifier_item'] = tag._tagObject__item
                                 concept['modifier_foundPhrase'] = tag._tagObject__foundPhrase
+                                if rule_info:
+                                    concept['modifier_context_literal'] = tag._tagObject__item._contextItem__literal
+                                    concept['modifier_context_re'] = tag._tagObject__item._contextItem__re
+                                    concept['modifier_context_rule'] = tag._tagObject__item._contextItem__rule
 
                     concept_index = concept_index + 1
                     if concept_index == len(concepts_flatlist):
@@ -66,8 +69,7 @@ def getContextConcepts(context, rslts, concept_list):
                     cui = concept.get('cui').upper().lower()
                     start = concept.get('start')
 
-    print(concepts_flatlist)
-    return ""
+    return concepts_flatlist
 
 
 def getFlatListConcepts(concept_list):
