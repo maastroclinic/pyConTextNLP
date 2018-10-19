@@ -1,54 +1,54 @@
-import pyConTextNLP.pyConText as pyConText
-import pyConTextNLP.itemData as itemData
-from textblob import TextBlob
-import pyConTextNLP.display.html as html
-import pyConTextNLP.io.quickumlsio as quickumlsio
-
 import json
 import os
 import pathlib
+import unittest
 
+import pyConTextNLP.itemData as itemData
+import pyConTextNLP.display.html as html
+import pyConTextNLP.io.quickumlsio as quickumlsio
+import pyConTextNLP.utils as utils
 
-
-report = ""
-with open('../resources/ignored/report_nl.txt', 'r') as report_file:
-    report = report_file.read()
-print(report)
-
+path_document = '../resources/ignored/document_nl.txt'
 path_modifiers_kb = "../../KB/lexical_kb_05042016_nl.yml"
-absolute_path_string_abspath = os.path.abspath(path_modifiers_kb)
-modifiers = itemData.get_items(pathlib.Path(absolute_path_string_abspath).as_uri())
 
-# ///// targets /////
-targets = itemData.get_items(
-    "https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/utah_crit.yml")
+path_targets_kb = "../../KB/targets.yml"
+path_targets_quickumls = '../resources/quickumls_response.json'
 
-quickumls_json = ""
-with open('../resources/quickumls_response.json') as json_file:
-    quickumls_json = json.load(json_file)
+path_result_pycontextnlp_xml = '../resources/report_pycontextnlp_out.xml'
+path_result_pycontextnlp_html = '../resources/report_pycontextnlp_out.html'
 
-targets_quickumls = quickumlsio.get_items_quickumls(quickumls_json['response'])
-# merged_targets = targets + targets_quickumls
-merged_targets = targets_quickumls
 
-def markup_sentence(s, modifiers, targets, prune_inactive=True):
-    """
-    """
-    markup = pyConText.ConTextMarkup()
-    markup.setRawText(s)
-    markup.cleanText()
-    markup.markItems(modifiers, mode="modifier")
-    markup.markItems(targets, mode="target")
-    markup.pruneMarks()
-    markup.dropMarks('Exclusion')
-    # apply modifiers to any targets within the modifiers scope
-    markup.applyModifiers()
-    markup.pruneSelfModifyingRelationships()
-    if prune_inactive:
-        markup.dropInactiveModifiers()
-    return markup
+class ReportTest(unittest.TestCase):
 
-def get_html():
+    document = {}
+    concept_list = {}
+    modifiers = {}
+    targets = {}
+
+    def test_context_quickumls(self):
+        self.load_data_files()
+        rslts = utils.perform_py_context_nlp(self.modifiers, self.targets, self.document)
+        context_concepts = quickumlsio.getContextConcepts(rslts, self.concept_list, rule_info=False)
+        write_concepts(context_concepts)
+        write_html(utils.markup_context(rslts))
+
+    def load_data_files(self):
+        absolute_path_string_abspath = os.path.abspath(path_modifiers_kb)
+        self.modifiers = itemData.get_items(pathlib.Path(absolute_path_string_abspath).as_uri())
+        absolute_path_string_abspath = os.path.abspath(path_targets_kb)
+        targets_kb = itemData.get_items(pathlib.Path(absolute_path_string_abspath).as_uri())
+
+        with open(path_targets_quickumls) as json_file:
+            data_result = json.load(json_file)
+            self.concept_list = data_result['response']
+            targets_quickumls = quickumlsio.get_items_quickumls(self.concept_list)
+            self.targets = targets_kb + targets_quickumls
+
+        with open(path_document, 'r') as document_file:
+            self.document = document_file.read()
+
+
+def get_html(context):
     clrs = { \
         "bowel_obstruction": "blue",
         "inflammation": "blue",
@@ -70,22 +70,15 @@ def get_html():
         <body>"""+htmlfile+"""</body>
         </html>"""
 
-context = pyConText.ConTextDocument()
+def write_html(context):
+    f = open('../resources/out/output.html', 'w')
+    f.write(get_html(context))
+    f.close()
 
-blob = TextBlob(report.lower())
-rslts = []
-for s in blob.sentences:
-    m = markup_sentence(s.raw, modifiers=modifiers, targets=merged_targets)
-    rslts.append(m)
+def write_concepts(context_concepts):
+    f = open('../resources/out/concepts.json', 'w')
+    f.write(json.dumps(context_concepts))
+    f.close()
 
-for r in rslts:
-    context.addMarkup(r)
-
-f = open('../resources/out/output.html', 'w')
-f.write(get_html())
-f.close()
-
-context_concepts = quickumlsio.getContextConcepts(rslts, quickumls_json['response'], rule_info=False)
-f = open('../resources/out/concepts.json', 'w')
-f.write(json.dumps(context_concepts))
-f.close()
+if __name__ == '__main__':
+    unittest.main()
