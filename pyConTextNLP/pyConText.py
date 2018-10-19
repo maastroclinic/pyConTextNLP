@@ -23,7 +23,7 @@ sub-texts of interest
 """
 import re
 from .ConTextMarkup import ConTextMarkup
-from .io.xml import xmlScrub
+from .io.xmlio import xmlScrub
 import networkx as nx
 
 

@@ -4,7 +4,7 @@ tabObject module
 
 import uuid
 import copy
-from .io.xml import xmlScrub
+from .io.xmlio import xmlScrub
 
 tagObjectXMLSkel=\
 """

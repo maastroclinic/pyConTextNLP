@@ -3,7 +3,7 @@ Module defining ConTextMarkup class
 """
 import re
 import uuid
-from . io.xml import xmlScrub
+from . io.xmlio import xmlScrub
 from . tagObject import tagObject
 
 import networkx as nx

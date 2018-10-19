@@ -33,10 +33,8 @@ class ReportTest(unittest.TestCase):
         write_html(utils.markup_context(rslts))
 
     def load_data_files(self):
-        absolute_path_string_abspath = os.path.abspath(path_modifiers_kb)
-        self.modifiers = itemData.get_items(pathlib.Path(absolute_path_string_abspath).as_uri())
-        absolute_path_string_abspath = os.path.abspath(path_targets_kb)
-        targets_kb = itemData.get_items(pathlib.Path(absolute_path_string_abspath).as_uri())
+        self.modifiers = itemData.get_items(pathlib.Path(os.path.abspath(path_modifiers_kb)).as_uri())
+        targets_kb = itemData.get_items(pathlib.Path(os.path.abspath(path_targets_kb)).as_uri())
 
         with open(path_targets_quickumls) as json_file:
             data_result = json.load(json_file)
