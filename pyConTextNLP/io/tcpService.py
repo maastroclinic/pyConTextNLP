@@ -43,7 +43,7 @@ if not is_url(args.targets):
 targets = itemData.get_items(args.modifiers)
 modifiers = itemData.get_items(args.targets)
 
-if os.environ.get('GRPC', 'false'):
+if (os.environ.get('GRPC','false')=='true'):
     from springcloudstream.grpc.stream import Processor
 else:
     from springcloudstream.tcp.stream import Processor
