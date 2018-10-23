@@ -17,11 +17,17 @@ import pyConTextNLP.itemData as itemData
 import pyConTextNLP.utils as utils
 
 parser = argparse.ArgumentParser(description='Annotate your document with contextual information')
-parser.add_argument('--modifiers', dest='modifiers', type=str, help='path or url of the modifiers (default https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/lexical_kb_05042016.yml)', default='https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/lexical_kb_05042016.yml')
-parser.add_argument('--targets', dest='targets', type=str, help='path or url of targets (default https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/utah_crit.yml)', default='https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/utah_crit.yml')
-parser.add_argument('--port', dest='port', type=int, help='port for service (default: 9999)', default=9999)
+parser.add_argument('--modifiers',
+                    dest='modifiers',
+                    help='path or url of the modifiers (default https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/lexical_kb_05042016.yml)',
+                    default='https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/lexical_kb_05042016.yml')
 
-args = parser.parse_args()
+parser.add_argument('--targets',
+                    dest='targets',
+                    help='path or url of targets (default https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/utah_crit.yml)',
+                    default='https://raw.githubusercontent.com/chapmanbe/pyConTextNLP/master/KB/utah_crit.yml')
+
+args, unknown = parser.parse_known_args()
 
 
 def is_url(url):
@@ -72,4 +78,12 @@ def process(data):
     return json.dumps(context_concepts, cls=SetEncoder)
 
 
-Processor(process, sys.argv).start()
+def get_processor_args(args):
+    processor_args = []
+    for current_arg in args:
+        if "modifiers" not in current_arg and "targets" not in current_arg:
+            processor_args.append(current_arg)
+    return processor_args
+
+
+Processor(process, get_processor_args(sys.argv)).start()

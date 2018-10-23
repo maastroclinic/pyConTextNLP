@@ -1,5 +1,4 @@
 textblob
 networkx
 pyyaml
-protobuf
 springcloudstream>=1.1.0

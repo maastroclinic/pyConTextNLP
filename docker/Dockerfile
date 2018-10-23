@@ -9,8 +9,8 @@ RUN pip install -r  requirements.txt
 RUN python -m textblob.download_corpora
 
 ENV PYTHONPATH /opt/pyContextNLP:$PYTHONPATH
-ARG PORT=9999
-ENV PORT=$PORT
+ENV PORT=9999
+ENV OPTIONAL_ARGS=''
 
 WORKDIR /opt/pyContextNLP
-CMD python /opt/pyContextNLP/pyConTextNLP/io/tcpService.py --port=$PORT
+CMD python /opt/pyContextNLP/pyConTextNLP/io/tcpService.py --port=$PORT $OPTIONAL_ARGS
