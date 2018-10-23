@@ -411,7 +411,7 @@ class ConTextMarkup(nx.DiGraph):
             return
         # this can surely be done faster
         marks = list(_marks)
-        marks.sort()
+        # marks.sort()
         nodes_to_remove = []
         for i in range(len(marks)-1):
             mark1 = marks[i]
