@@ -46,8 +46,8 @@ if not is_url(args.modifiers):
 if not is_url(args.targets):
     args.targets = pathlib.Path(os.path.abspath(args.targets)).as_uri()
 
-targets = itemData.get_items(args.modifiers)
-modifiers = itemData.get_items(args.targets)
+targets = itemData.get_items(args.targets)
+modifiers = itemData.get_items(args.modifiers)
 
 if (os.environ.get('GRPC','false')=='true'):
     from springcloudstream.grpc.stream import Processor
@@ -65,16 +65,16 @@ class SetEncoder(json.JSONEncoder):
 
 
 def process(data):
-    targets_document = targets
-
     dto = json.loads(str(data))
     text = dto['text']
     quickumls_concepts = dto['quickumls_concepts']
 
-    targets_document = targets_document + quickumlsio.get_items_quickumls(quickumls_concepts)
+
+    targets_document = targets + quickumlsio.get_items_quickumls(quickumls_concepts)
 
     rslts = utils.perform_py_context_nlp(modifiers, targets_document, text)
     context_concepts = quickumlsio.getContextConcepts(rslts, quickumls_concepts, rule_info=False)
+
     return json.dumps(context_concepts, cls=SetEncoder)
 
 
