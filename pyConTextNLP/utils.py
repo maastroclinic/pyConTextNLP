@@ -26,7 +26,7 @@ def perform_py_context_nlp(modifiers, targets, document):
     blob = TextBlob(document.lower())
     rslts = []
     for s in blob.sentences:
-        m = markup_sentence(s.raw, modifiers=modifiers, targets=targets)
+        m = markup_sentence(s.raw, modifiers=modifiers, targets=targets, prune_inactive=False)
         rslts.append(m)
 
     return rslts

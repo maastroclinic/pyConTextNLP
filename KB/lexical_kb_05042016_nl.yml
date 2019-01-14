@@ -70,7 +70,7 @@
   Unnamed-6: ""
   Codes: ""
 ---
-  Lex: gratis
+  Lex: zonder
   Type: DEFINITE_NEGATED_EXISTENCE
   Regex: ""
   Direction: backward
@@ -97,9 +97,9 @@
   Unnamed-6: ""
   Codes: ""
 ---
-  Lex: 'zit in het differentieel'
+  Lex: 'zit in het differentiaal'
   Type: AMBIVALENT_EXISTENCE
-  Regex: is\sin\sde\sdifferentieel
+  Regex: is\sin\shet\sdifferentiaal
   Direction: backward
   Unnamed-4: ""
   Unnamed-5: ""
@@ -3004,7 +3004,7 @@
   Unnamed-6: ""
   Codes: ""
 ---
-  Lex: '(nee | niets) overtuigend'
+  Lex: '(nee | niet) overtuigend'
   Type: DEFINITE_NEGATED_EXISTENCE
   Regex: ""
   Direction: forward
@@ -3419,7 +3419,16 @@
   Codes: ""
 ---
   Lex: geen
-  Type: PROBABLE_NEGATED_EXISTENCE
+  Type: DEFINITE_NEGATED_EXISTENCE
+  Regex: \bgeen\b
+  Direction: forward
+  Unnamed-4: ""
+  Unnamed-5: ""
+  Unnamed-6: ""
+  Codes: ""
+---
+  Lex: geen aanwijzingen
+  Type: DEFINITE_NEGATED_EXISTENCE
   Regex: \bgeen\b
   Direction: forward
   Unnamed-4: ""

@@ -46,8 +46,12 @@ if not is_url(args.modifiers):
 if not is_url(args.targets):
     args.targets = pathlib.Path(os.path.abspath(args.targets)).as_uri()
 
+print('loading targets=', args.targets)
 targets = itemData.get_items(args.targets)
+print('loading modifiers=', args.modifiers)
 modifiers = itemData.get_items(args.modifiers)
+
+
 
 if (os.environ.get('GRPC','false')=='true'):
     from springcloudstream.grpc.stream import Processor
@@ -57,25 +61,28 @@ else:
 warnings.filterwarnings("ignore")
 
 
-class SetEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-        return json.JSONEncoder.default(self, obj)
-
-
 def process(data):
     dto = json.loads(str(data))
     text = dto['text']
-    quickumls_concepts = dto['quickumls_concepts']
 
+    quickumls_concepts_context_items = None
+    try:
+        quickumls_concepts = dto['quickumls_concepts']
+        quickumls_concepts_context_items = quickumlsio.get_items_quickumls(quickumls_concepts)
+        print('quickumls concept size:{0}'.format(len(quickumls_concepts_context_items)))
+    except:
+        print("no quickumls_concepts parsed")
+        quickumls_concepts = None
 
-    targets_document = targets + quickumlsio.get_items_quickumls(quickumls_concepts)
+    if quickumls_concepts_context_items:
+        targets_document = targets + quickumls_concepts_context_items
+    else:
+        targets_document = targets
 
     rslts = utils.perform_py_context_nlp(modifiers, targets_document, text)
     context_concepts = quickumlsio.getContextConcepts(rslts, quickumls_concepts, rule_info=False)
 
-    return json.dumps(context_concepts, cls=SetEncoder)
+    return json.dumps(context_concepts) + '\r\n'
 
 
 def get_processor_args(args):

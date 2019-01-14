@@ -1,0 +1,17 @@
+Comments: ''
+Direction: ''
+Lex: embolism
+Regex: longemb*
+Type: PULMONARY_EMBOLISM
+---
+Comments: ''
+Direction: ''
+Lex: embolism
+Regex: long emb*
+Type: PULMONARY_EMBOLISM
+---
+Comments: ''
+Direction: ''
+Lex: embolism
+Regex: emb*
+Type: PULMONARY_EMBOLISM
