@@ -34,7 +34,7 @@ class TcpServiceTest(unittest.TestCase):
         assert len(rslts) > 0
 
     def test_target_regex_advanced2(self):
-        targets = [{'direction': '', 'lex': 'aaa', 'regex': 'weke\s{0,1}delen|wda', 'type': 'TUMOR'}]
+        targets = ContextClient.create_target('', 'aaa', 'weke\s{0,1}delen|wda', 'TUMOR')
         sentence = 'Er zijn wda zichtbaar'
         rslts = self.context_client.annotate(sentence, targets)
         logging.info('result{}'.format(rslts))

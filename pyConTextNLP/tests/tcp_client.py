@@ -58,3 +58,7 @@ class ContextClient(object):
 
     def close(self):
         self.s.close()
+
+    @staticmethod
+    def create_target(direction, lex, regex, category):
+        return [{'direction': direction, 'lex': lex, 'regex': regex, 'type': category}]

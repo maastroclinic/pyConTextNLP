@@ -16,12 +16,12 @@
     -v '/data/KB/critical_findings_lung_embolism_nl.yml:/opt/pyContextNLP/KB/manual_targets.yml'\
     -v '/data/KB/lexical_kb_05042016_nl.yml:/opt/pyContextNLP/KB/custom_modifiers.yml'\
     -e OPTIONAL_ARGS='--targets=/opt/pyContextNLP/KB/manual_targets.yml --modifiers=/opt/pyContextNLP/KB/custom_modifiers.yml'\
-    -p 9922:9999 maastrodocker/pycontextnlp
+    -p 9999:9999 maastrodocker/pycontextnlp
 
     
    Optional TCP arguments can be found [here](https://github.com/dturanski/springcloudstream)
     
-    $ docker run --rm -e OPTIONAL_ARGS='--debug --monitor-port=9999' -p 9922:9999 maastrodocker/pycontextnlp
+    $ docker run --rm -e OPTIONAL_ARGS='--debug --monitor-port=9999' -p 9999:9999 maastrodocker/pycontextnlp
 
     
 ### TCP communication

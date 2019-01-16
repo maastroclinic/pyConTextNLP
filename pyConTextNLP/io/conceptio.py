@@ -17,36 +17,36 @@ def get_target_items(target_list):
 
 
 def get_results(rslts, rule_info):
-    concept_list_context = []
+    results = []
     for rslt in rslts:
-        concept_list_context += add_non_concepts(rslt, rule_info)
-    return concept_list_context
+        results += add_result(rslt, rule_info)
+    return results
 
 
-def add_non_concepts(rslt, rule_info):
-    concept_list_context = []
+def add_result(rslt, rule_info):
+    target_result_list = []
     for node in rslt.nodes:
 
         if node._tagObject__ConTextCategory != 'target':
             continue
 
-        concept = {}
-        concept['found_phrase'] = node._tagObject__foundPhrase
-        concept['span_start'] = node._tagObject__spanStart
-        concept['span_end'] = node._tagObject__spanEnd
-        concept['span_end'] = node._tagObject__spanEnd
-        concept['category'] = node._tagObject__category
+        target = {}
+        target['found_phrase'] = node._tagObject__foundPhrase
+        target['span_start'] = node._tagObject__spanStart
+        target['span_end'] = node._tagObject__spanEnd
+        target['span_end'] = node._tagObject__spanEnd
+        target['category'] = node._tagObject__category
 
         for edge in rslt.edges():
             for tag in edge:
                 if tag._tagObject__ConTextCategory == 'modifier':
-                    concept['modifier_category'] = tag._tagObject__category
-                    concept['modifier_found_phrase'] = tag._tagObject__foundPhrase
+                    target['modifier_category'] = tag._tagObject__category
+                    target['modifier_found_phrase'] = tag._tagObject__foundPhrase
                     if rule_info:
-                        concept['modifier_context_literal'] = tag._tagObject__item._contextItem__literal
-                        concept['modifier_context_re'] = tag._tagObject__item._contextItem__re
-                        concept['modifier_context_rule'] = tag._tagObject__item._contextItem__rule
-        concept_list_context.append(concept)
+                        target['modifier_context_literal'] = tag._tagObject__item._contextItem__literal
+                        target['modifier_context_re'] = tag._tagObject__item._contextItem__re
+                        target['modifier_context_rule'] = tag._tagObject__item._contextItem__rule
+        target_result_list.append(target)
 
-    return concept_list_context
+    return target_result_list
 
