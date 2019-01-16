@@ -1,3 +1,5 @@
+#pyContextNLP dockerized version
+
 ### BUILD
 
     $ docker build -t maastrodocker/pycontextnlp -f docker/Dockerfile .
@@ -11,15 +13,14 @@
    --modifiers=
    
    --targets=
+      
+   Example of running pyContextNLP using a custom modifier and target file from the host system.
     
-   which have default values.
-   
-    $ docker run --rm -e OPTIONAL_ARGS='--modifiers=/opt/pyContextNLP/KB/lexical_kb_05042016_nl.yml' -p 9922:9999 maastrodocker/pycontextnlp
-
-   
-   Container paths can be overwritten using a volume mount by files form your host.
-    
-    $ docker run --rm -v '/data/KB/modifiers.yml:/opt/pyContextNLP/KB/modifiers.yml' -e OPTIONAL_ARGS='--modifiers=/opt/pyContextNLP/KB/modifiers.yml' -p 9922:9999 maastrodocker/pycontextnlp
+    $ docker run --rm\
+    -v '/data/KB/critical_findings_lung_embolism_nl.yml:/opt/pyContextNLP/KB/manual_targets.yml'\
+    -v '/data/KB/lexical_kb_05042016_nl.yml:/opt/pyContextNLP/KB/custom_modifiers.yml'\
+    -e OPTIONAL_ARGS='--targets=/opt/pyContextNLP/KB/manual_targets.yml --modifiers=/opt/pyContextNLP/KB/custom_modifiers.yml'\
+    -p 9922:9999 maastrodocker/pycontextnlp
 
     
    Optional TCP arguments can be found [here](https://github.com/dturanski/springcloudstream)
@@ -27,11 +28,38 @@
     $ docker run --rm -e OPTIONAL_ARGS='--debug --monitor-port=9999' -p 9922:9999 maastrodocker/pycontextnlp
 
     
+### TCP communication
+
+For communication netcat can be used or see [test_tcp_service](tests/pyConTextNLP/test_tcp_service.py) for a python implementation
+
+Object parameters:
+
+    text: input text
+    targets: optional array of additional pyContextNLP targets (use lowercasing for keys)
+
+Example:
+
+    {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
+
 ### NetCat
     
-    Connect to the application.
+Connect to the application.
     
-        nc localhost 9999
+    nc localhost 9999
     
-    The following request:    
+The following request (without context):    
     
+    {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
+
+Results in the following response
+
+    [{"found_phrase": "weke delen", "span_start": 8, "span_end": 18, "category": ["tumor"]}]
+    
+The following request (with context):    
+        
+    {"text": "Er zijn geen weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
+    
+Results in the following response:
+    
+    [{"found_phrase": "weke delen", "span_start": 13, "span_end": 23, "category": ["tumor"], "modifier_category": ["definite_negated_existence"], "modifier_found_phrase": "geen"}]
+

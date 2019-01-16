@@ -11,11 +11,14 @@ import re
 import pathlib
 import json
 import argparse
+import logging
 
-import pyConTextNLP.io.quickumlsio as quickumlsio
+
+import pyConTextNLP.io.conceptio as conceptio
 import pyConTextNLP.itemData as itemData
 import pyConTextNLP.utils as utils
 
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 parser = argparse.ArgumentParser(description='Annotate your document with contextual information')
 parser.add_argument('--modifiers',
                     dest='modifiers',
@@ -46,12 +49,10 @@ if not is_url(args.modifiers):
 if not is_url(args.targets):
     args.targets = pathlib.Path(os.path.abspath(args.targets)).as_uri()
 
-print('loading targets=', args.targets)
+logging.info('loading targets=${0}'.format(args.targets))
 targets = itemData.get_items(args.targets)
-print('loading modifiers=', args.modifiers)
+logging.info('loading modifiers=${0}'.format(args.modifiers))
 modifiers = itemData.get_items(args.modifiers)
-
-
 
 if (os.environ.get('GRPC','false')=='true'):
     from springcloudstream.grpc.stream import Processor
@@ -65,22 +66,23 @@ def process(data):
     dto = json.loads(str(data))
     text = dto['text']
 
-    quickumls_concepts_context_items = None
+    concepts_context_items = None
     try:
-        quickumls_concepts = dto['quickumls_concepts']
-        quickumls_concepts_context_items = quickumlsio.get_items_quickumls(quickumls_concepts)
-        print('quickumls concept size:{0}'.format(len(quickumls_concepts_context_items)))
+        concepts = dto['targets']
+        concepts_context_items = conceptio.get_target_items(concepts)
+        logging.info('additional target input size:{0}'.format(len(concepts_context_items)))
     except:
-        print("no quickumls_concepts parsed")
-        quickumls_concepts = None
+        logging.info("no additional input target set")
+        concepts = None
 
-    if quickumls_concepts_context_items:
-        targets_document = targets + quickumls_concepts_context_items
+    if concepts_context_items:
+        targets_document = targets + concepts_context_items
     else:
         targets_document = targets
 
     rslts = utils.perform_py_context_nlp(modifiers, targets_document, text)
-    context_concepts = quickumlsio.getContextConcepts(rslts, quickumls_concepts, rule_info=False)
+    context_concepts = conceptio.get_results(rslts, rule_info=False)
+    logging.info('pyContextNLP annotated target size:{}'.format(len(context_concepts)))
 
     return json.dumps(context_concepts) + '\r\n'
 
