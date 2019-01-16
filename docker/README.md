@@ -1,9 +1,5 @@
 #pyContextNLP dockerized version
 
-### BUILD
-
-    $ docker build -t maastrodocker/pycontextnlp -f docker/Dockerfile .
-
 ### RUN
     
     $ docker run --rm -p 9999:9999 maastrodocker/pycontextnlp
@@ -47,19 +43,23 @@ Connect to the application.
     
     nc localhost 9999
     
-The following request (without context):    
+#### NetCat examples
     
-    {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
-
-Results in the following response
-
-    [{"found_phrase": "weke delen", "span_start": 8, "span_end": 18, "category": ["tumor"]}]
+1. The following request (without context):    
     
-The following request (with context):    
+        {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
+    Results in the following response
+
+        [{"found_phrase": "weke delen", "span_start": 8, "span_end": 18, "category": ["tumor"]}]
+    
+2. The following request (with context):
         
-    {"text": "Er zijn geen weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
-    
-Results in the following response:
-    
-    [{"found_phrase": "weke delen", "span_start": 13, "span_end": 23, "category": ["tumor"], "modifier_category": ["definite_negated_existence"], "modifier_found_phrase": "geen"}]
+        {"text": "Er zijn geen weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
+    Results in the following response:
+        
+        [{"found_phrase": "weke delen", "span_start": 13, "span_end": 23, "category": ["tumor"], "modifier_category": ["definite_negated_existence"], "modifier_found_phrase": "geen"}]
 
+
+### BUILD (OPTIONAL)
+
+    $ docker build -t maastrodocker/pycontextnlp -f docker/Dockerfile .
