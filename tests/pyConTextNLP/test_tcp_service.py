@@ -52,5 +52,6 @@ class TcpServiceTest(unittest.TestCase):
         logging.info('result{}'.format(rslts))
         assert len(rslts) > 0
 
+
 if __name__ == '__main__':
     unittest.main()
