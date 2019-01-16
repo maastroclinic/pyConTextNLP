@@ -26,7 +26,7 @@
     
 ### TCP communication
 
-For communication netcat can be used or see [test_tcp_service](tests/pyConTextNLP/test_tcp_service.py) for a python implementation
+For communication netcat can be used or see [test_tcp_service](../tests/pyConTextNLP/test_tcp_service.py) for a python implementation
 
 Object parameters:
 
