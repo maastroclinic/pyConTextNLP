@@ -63,3 +63,9 @@ Connect to the application.
 ### BUILD (OPTIONAL)
 
     $ docker build -t maastrodocker/pycontextnlp -f docker/Dockerfile .
+    
+
+### Caching
+
+WARNING! Be aware of the following [issue](https://github.com/chapmanbe/pyConTextNLP/issues/13)
+After changing a regular expression of a Lex, the application has to be rebooted to clear its cached Regex.
