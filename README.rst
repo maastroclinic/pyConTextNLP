@@ -15,7 +15,7 @@ Other active and past developers include:
 
 MAASTRO fork
 -------------
-This fork of pyContextNLP adds docker and TCP support, documentation can be found [here](/docker/README.md)
+This fork of pyContextNLP adds docker and TCP support, documentation can be found `here </docker/README.md>`
 
 
 Introduction
