@@ -1,32 +1,39 @@
-#pyContextNLP dockerized version
+#pyContextNLP docker-edition
 
-### RUN
+Run pyContextNLP as a micro-service and communicate over TCP.
+
+
+## RUN
     
     $ docker run --rm -p 9999:9999 maastrodocker/pycontextnlp
             
-   pyContextNLP optional arguments are
+pyContextNLP optional arguments are, to specify targets and modifiers from a yml file
    
    --modifiers=
    
    --targets=
       
-   Example of running pyContextNLP using a custom modifier and target file from the host system.
+Example of running pyContextNLP using a custom modifier and target file from the host system.
     
     $ docker run --rm\
     -v '/data/KB/critical_findings_lung_embolism_nl.yml:/opt/pyContextNLP/KB/manual_targets.yml'\
     -v '/data/KB/lexical_kb_05042016_nl.yml:/opt/pyContextNLP/KB/custom_modifiers.yml'\
-    -e OPTIONAL_ARGS='--targets=/opt/pyContextNLP/KB/manual_targets.yml --modifiers=/opt/pyContextNLP/KB/custom_modifiers.yml'\
+    -e OPTIONAL_ARGS='--targets=/opt/pyContextNLP/KB/custom_targets.yml --modifiers=/opt/pyContextNLP/KB/custom_modifiers.yml'\
     -p 9999:9999 maastrodocker/pycontextnlp
 
+Replace '/data/KB/critical_findings_lung_embolism_nl.yml' and or '/data/KB/lexical_kb_05042016_nl.yml' 
     
-   Optional TCP arguments can be found [here](https://github.com/dturanski/springcloudstream)
+Optional TCP arguments can be found [here](https://github.com/dturanski/springcloudstream)
     
     $ docker run --rm -e OPTIONAL_ARGS='--debug --monitor-port=9999' -p 9999:9999 maastrodocker/pycontextnlp
 
-    
-### TCP communication
+ ### T-stage classification usage in Dutch
 
-For communication netcat can be used or see [test_tcp_service](../tests/pyConTextNLP/test_tcp_service.py) for a python implementation
+
+    
+## TCP communication
+
+For communication netcat can be used or see [test_tcp_service](../tests/pyConTextNLP/test_tcp_service.py) for a python implementation or [medstruct](https://github.com/maastroclinic/medstruct)
 
 Object parameters:
 
@@ -37,30 +44,28 @@ Example:
 
     {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
 
-### NetCat
+#### NetCat example
     
-Connect to the application.
+1. Connect to the application.
     
-    nc localhost 9999
-    
-#### NetCat examples
-    
-1. The following request (without context):    
+        nc localhost 9999
+     
+2. The following request:    
     
         {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
-    Results in the following response
+    Results in the following response (target without modifier extracted)
 
         [{"found_phrase": "weke delen", "span_start": 8, "span_end": 18, "category": ["tumor"]}]
     
-2. The following request (with context):
+3. The following request (with context):
         
         {"text": "Er zijn geen weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
-    Results in the following response:
+    Results in the following response (target with modifier extracted)
         
         [{"found_phrase": "weke delen", "span_start": 13, "span_end": 23, "category": ["tumor"], "modifier_category": ["definite_negated_existence"], "modifier_found_phrase": "geen"}]
 
 
-### BUILD (OPTIONAL)
+### Manual docker build
 
     $ docker build -t maastrodocker/pycontextnlp -f docker/Dockerfile .
     
