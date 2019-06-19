@@ -2,17 +2,20 @@
 
 Run pyContextNLP as a micro-service and communicate over TCP.
 
+Targets can be provided in the TCP request, this enables the extraction of context for targets are extracted by a another approach (e.g. concept extractor QuickUMLS).
+
 
 ## RUN
     
     $ docker run --rm -p 9999:9999 maastrodocker/pycontextnlp
             
-pyContextNLP optional arguments are, to specify targets and modifiers from a yml file
+Provide an optional .yml-file for pyContextNLP targets and modifiers using the following arguments:
    
-   --modifiers=
+   --modifiers=...
    
-   --targets=
-      
+   --targets=...
+
+
 Example of running pyContextNLP using a custom modifier and target file from the host system.
     
     $ docker run --rm\
@@ -21,14 +24,11 @@ Example of running pyContextNLP using a custom modifier and target file from the
     -e OPTIONAL_ARGS='--targets=/opt/pyContextNLP/KB/custom_targets.yml --modifiers=/opt/pyContextNLP/KB/custom_modifiers.yml'\
     -p 9999:9999 maastrodocker/pycontextnlp
 
-Replace '/data/KB/critical_findings_lung_embolism_nl.yml' and or '/data/KB/lexical_kb_05042016_nl.yml' 
+Replace '/data/KB/critical_findings_lung_embolism_nl.yml' and or '/data/KB/lexical_kb_05042016_nl.yml' with the paths of the host system.
     
 Optional TCP arguments can be found [here](https://github.com/dturanski/springcloudstream)
     
     $ docker run --rm -e OPTIONAL_ARGS='--debug --monitor-port=9999' -p 9999:9999 maastrodocker/pycontextnlp
-
- ### T-stage classification usage in Dutch
-
 
     
 ## TCP communication
