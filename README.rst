@@ -13,9 +13,9 @@ Other active and past developers include:
 -  Danielle Mowery
 
 
-MAASTRO fork
+MAASTRO docker-version (maastrodocker/pycontextnlp)
 -------------
-This fork of pyContextNLP adds docker and TCP support, documentation can be found `here </docker/README.md>`
+This fork of pyContextNLP adds docker and TCP support, documentation can be found `here </docker/README.md>`__
 
 
 Introduction
