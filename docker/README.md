@@ -1,4 +1,4 @@
-#pyContextNLP docker-edition
+# maastrodocker/pycontextnlp
 
 Run pyContextNLP as a micro-service and communicate over TCP.
 
@@ -35,14 +35,10 @@ Optional TCP arguments can be found [here](https://github.com/dturanski/springcl
 
 For communication netcat can be used or see [test_tcp_service](../tests/pyConTextNLP/test_tcp_service.py) for a python implementation or [medstruct](https://github.com/maastroclinic/medstruct)
 
-Object parameters:
+JSON parameters:
+- text: input text  
+- targets: optional array of additional pyContextNLP targets (use lowercasing for keys)
 
-    text: input text
-    targets: optional array of additional pyContextNLP targets (use lowercasing for keys)
-
-Example:
-
-    {"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "wd", "regex": "weke\\\\s{0,1}delen|wda", "type": "TUMOR"}]}
 
 #### NetCat example
     
