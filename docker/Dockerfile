@@ -1,4 +1,4 @@
-FROM jfloff/alpine-python:recent
+FROM jfloff/alpine-python:latest
 MAINTAINER Sander Puts
 
 COPY requirements.txt /opt/pyContextNLP/requirements.txt

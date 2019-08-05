@@ -31,6 +31,14 @@ def perform_py_context_nlp(modifiers, targets, document):
 
     return rslts
 
+def perform_py_context_nlp_sentence(modifiers, targets, document):
+    """"""
+    rslts = []
+    m = markup_sentence(document.lower(), modifiers=modifiers, targets=targets, prune_inactive=False)
+    rslts.append(m)
+
+    return rslts
+
 def markup_sentence(s, modifiers, targets, prune_inactive=True):
     """
     """
