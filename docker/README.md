@@ -29,6 +29,16 @@ Replace '/data/KB/critical_findings_lung_embolism_nl.yml' and or '/data/KB/lexic
 Optional TCP arguments can be found [here](https://github.com/dturanski/springcloudstream)
     
     $ docker run --rm -e OPTIONAL_ARGS='--debug --monitor-port=9999' -p 9999:9999 maastrodocker/pycontextnlp
+    
+
+REST
+
+    docker run --rm    -v '/data/KB/critical_findings_lung_embolism_nl.yml:/opt/pyContextNLP/KB/manual_targets.yml'    -v '/data/KB/lexical_kb_05042016_nl.yml:/opt/pyContextNLP/KB/custom_modifiers.yml'    -e OPTIONAL_ARGS='--targets=/opt/pyContextNLP/KB/custom_targets.yml --modifiers=/opt/pyContextNLP/KB/custom_modifiers.yml'    -p 8080:80 maastrodocker/pycontextnlp
+    
+POST
+
+    curl -d '{"text": "Er zijn weke delen zichtbaar", "targets": [{"direction": "", "lex": "weke", "regex": "weke", "type": "TUMOR"}]}'  -H "Content-Type: application/json" -X POST http://localhost:8080/
+
 
     
 ## TCP communication
@@ -63,7 +73,10 @@ JSON parameters:
 
 ### Manual docker build
 
-    $ docker build -t maastrodocker/pycontextnlp -f docker/Dockerfile .
+    $ docker build -t maastrodocker/pycontextnlp .
+
+
+    $ docker build -t maastrodocker/pycontextnlp:tcp -f docker/tcp/Dockerfile .
     
 
 ### ISSUES
