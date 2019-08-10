@@ -42,56 +42,51 @@ def add_sentence_results(data, sentence, results):
 
 
 def get_result(rslt, rule_info, data, sentence):
-    target_result_list = []
+    node_result_list = []
     for node in rslt.nodes:
 
         if node._tagObject__ConTextCategory != 'target':
             continue
 
         target = {}
-        target['found_phrase'] = node._tagObject__foundPhrase
         target['span_start'] = node._tagObject__spanStart
         target['span_end'] = node._tagObject__spanEnd
         target['span_end'] = node._tagObject__spanEnd
         target['category'] = node._tagObject__category
 
-        tokens = get_target_tokens(data, sentence, target)
+        tokens = get_phrase_tokens(data, sentence, node._tagObject__foundPhrase)
         print(tokens)
 
-        context = {}
-        context['target'] = {}
-        context['target']['foundPhrase'] = node._tagObject__foundPhrase
-        context['target']['tokens'] = tokens
-        context['target']['category'] = node._tagObject__category
-        context['modifiers'] = []
+        context_item = {}
+        context_item['target'] = {}
+        context_item['target']['foundPhrase'] = node._tagObject__foundPhrase
+        context_item['target']['tokens'] = tokens
+        context_item['target']['category'] = node._tagObject__category
+        context_item['modifiers'] = []
         context_modifiers = []
 
         for edge in rslt.edges():
-
-
             for tag in edge:
                 if tag._tagObject__ConTextCategory == 'modifier':
-
                     modifier = {}
                     modifier['category'] = tag._tagObject__category
                     modifier['found_phrase'] = tag._tagObject__foundPhrase
-                    modifier['tokens'] = []
-
+                    modifier['tokens'] = get_phrase_tokens(data, sentence, tag._tagObject__foundPhrase)
                     if rule_info:
-                        modifier['modifier_context_literal'] = tag._tagObject__item._contextItem__literal
-                        modifier['modifier_context_re'] = tag._tagObject__item._contextItem__re
-                        modifier['modifier_context_rule'] = tag._tagObject__item._contextItem__rule
+                        modifier['literal'] = tag._tagObject__item._contextItem__literal
+                        modifier['re'] = tag._tagObject__item._contextItem__re
+                        modifier['rule'] = tag._tagObject__item._contextItem__rule
                     context_modifiers.append(modifier)
 
-        context['modifiers'] = context_modifiers
-        target_result_list.append(context)
-    return target_result_list
+        context_item['modifiers'] = context_modifiers
+        node_result_list.append(context_item)
+    return node_result_list
 
 
-def get_target_tokens(data, sentence, target):
+def get_phrase_tokens(data, sentence, phrase):
     tokens = []
     for token_id in sentence['tokens']:
         token = data['documents'][0]['tokenList'][token_id - 1]
-        if token['text'] == target['found_phrase']:
+        if token['text'].lower() == phrase:
             tokens.append(token['id'])
     return tokens
