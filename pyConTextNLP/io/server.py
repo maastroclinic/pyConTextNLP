@@ -13,6 +13,7 @@ import argparse
 import logging
 from flask import Flask
 from flask import request
+from flask import jsonify
 
 
 import pyConTextNLP.io.conceptio as conceptio
@@ -62,14 +63,12 @@ modifiers = itemData.get_items(args.modifiers)
 warnings.filterwarnings("ignore")
 
 
-def process(data):
-    dto = json.loads(str(data))
-    if 'meta' not in dto or ['DC.date'] not in dto['meta']:
+def process(dto):
+    if 'meta' not in dto or 'DC.date' not in dto['meta']:
         context_concepts = process_default(dto)
-        return json.dumps(context_concepts)
+        return context_concepts
     else:
-        data = process_jsonnlp(dto)
-        return json.dumps(data)
+        return process_jsonnlp(dto)
 
 
 def process_default(dto):
@@ -105,7 +104,6 @@ def process_jsonnlp(data):
     data['documents'][0]['context'] = []
     for sentence in jsonnlp.get_sentences(data):
         text = jsonnlp.get_sentence_string(data, sentence[1])
-        logging.info(text)
         targets_document = targets #to implement based on entities? maybe it should be targets_sentence
         results = utils.perform_py_context_nlp(modifiers, targets_document, text)
         jsonnlp.add_sentence_results(data, sentence[1], results)
@@ -124,14 +122,14 @@ def process_flask():
         content['text'] = request.args.get('text')
     else:
         content = request.get_json(silent=True)
-    return process(json.dumps(content))
+    return jsonify(process(content))
 
 
 @app.route('/json-nlp', methods=['GET', 'POST'])
 def process_flask_jsonnlp():
     content = request.get_json(silent=True)
-    return process_jsonnlp(json.dumps(content))
+    return jsonify(process_jsonnlp(content))
 
 
 if __name__ == "__main__":
-    app.run(debug=False, port=5005, host='0.0.0.0')
+    app.run(debug=False, port=5003, host='0.0.0.0')
