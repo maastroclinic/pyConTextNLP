@@ -36,15 +36,16 @@ parser.add_argument('--targets',
 
 args, unknown = parser.parse_known_args()
 
+if os.environ.get('MODIFIERS'):
+    args.modifiers = '' + os.environ.get('MODIFIERS')
+    print('MODIFIERS as env = ' + args.modifiers)
+if os.environ.get('TARGETS'):
+    args.targets = '' + os.environ.get('TARGETS')
+    print('TARGETS as env = ' + args.targets)
+
 
 def is_url(url):
-    regex = re.compile(
-        r'^(?:http|ftp)s?://' # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-        r'localhost|' #localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?' # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    regex = re.compile(r'^(?:http|ftp)s?://', re.IGNORECASE)
     return re.match(regex, url)
 
 
@@ -63,7 +64,7 @@ warnings.filterwarnings("ignore")
 
 def process(data):
     dto = json.loads(str(data))
-    if not dto['meta']['DC.date']:
+    if 'meta' not in dto or ['DC.date'] not in dto['meta']:
         context_concepts = process_default(dto)
         return json.dumps(context_concepts)
     else:
@@ -73,6 +74,9 @@ def process(data):
 
 def process_default(dto):
     targets_document = get_target_documents_default(dto)
+    if 'text' not in dto:
+        raise ValueError("No key 'text' in given data")
+
     text = dto['text']
     results = utils.perform_py_context_nlp(modifiers, targets_document, text)
     context_concepts = conceptio.get_results(results, rule_info=False)
@@ -82,11 +86,11 @@ def process_default(dto):
 
 def get_target_documents_default(dto):
     concepts_context_items = None
-    try:
+    if 'targets' in dto:
         concepts = dto['targets']
         concepts_context_items = conceptio.get_target_items(concepts)
         logging.info('additional target input size:{0}'.format(len(concepts_context_items)))
-    except:
+    else:
         logging.info("no additional input target set")
 
     if concepts_context_items:
@@ -113,15 +117,21 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def process_flask():
-    content = request.get_json(silent=True)
+    if request.method == 'GET':
+        content = {}
+        if 'text' not in request.url:
+            raise ValueError('You need to request param "text"')
+        content['text'] = request.args.get('text')
+    else:
+        content = request.get_json(silent=True)
     return process(json.dumps(content))
 
 
 @app.route('/json-nlp', methods=['GET', 'POST'])
 def process_flask_jsonnlp():
     content = request.get_json(silent=True)
-    return process(json.dumps(content))
+    return process_jsonnlp(json.dumps(content))
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080, host='0.0.0.0')
+    app.run(debug=False, port=5005, host='0.0.0.0')
