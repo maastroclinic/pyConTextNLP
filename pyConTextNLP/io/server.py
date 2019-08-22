@@ -103,9 +103,9 @@ def get_target_documents_default(dto):
 def process_jsonnlp(data):
     data['documents'][0]['context'] = []
     for sentence in jsonnlp.get_sentences(data):
-        text = jsonnlp.get_sentence_string(data, sentence[1])
+        sentence_string = jsonnlp.get_sentence_string(data, sentence[1])
         targets_document = targets #to implement based on entities? maybe it should be targets_sentence
-        results = utils.perform_py_context_nlp(modifiers, targets_document, text)
+        results = utils.perform_py_context_nlp(modifiers, targets_document, sentence_string)
         jsonnlp.add_sentence_results(data, sentence[1], results)
     return data
 

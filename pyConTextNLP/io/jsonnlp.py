@@ -54,7 +54,7 @@ def get_result(rslt, rule_info, data, sentence):
         target['span_end'] = node._tagObject__spanEnd
         target['category'] = node._tagObject__category
 
-        tokens = get_phrase_tokens(data, sentence, node._tagObject__foundPhrase)
+        tokens = get_phrase_tokens(data, sentence, node._tagObject__foundPhrase, node._tagObject__spanStart, node._tagObject__spanEnd)
         print(tokens)
 
         context_item = {}
@@ -71,7 +71,7 @@ def get_result(rslt, rule_info, data, sentence):
                     modifier = {}
                     modifier['category'] = tag._tagObject__category
                     modifier['found_phrase'] = tag._tagObject__foundPhrase
-                    modifier['tokens'] = get_phrase_tokens(data, sentence, tag._tagObject__foundPhrase)
+                    modifier['tokens'] = get_phrase_tokens(data, sentence, tag._tagObject__foundPhrase, tag._tagObject__spanStart, tag._tagObject__spanEnd)
                     if rule_info:
                         modifier['literal'] = tag._tagObject__item._contextItem__literal
                         modifier['re'] = tag._tagObject__item._contextItem__re
@@ -83,10 +83,22 @@ def get_result(rslt, rule_info, data, sentence):
     return node_result_list
 
 
-def get_phrase_tokens(data, sentence, phrase):
+def get_phrase_tokens(data, sentence, phrase, phrase_start, phrase_end):
     tokens = []
-    for token_id in sentence['tokens']:
+    if len(sentence['tokens']) is 0:
+        return tokens
+
+    first_token_id = sentence['tokens'][0]
+    first_token = data['documents'][0]['tokenList'][first_token_id - 1]
+    sentence_offset = first_token['characterOffsetBegin']
+    in_range = False
+    for token_id in sentence['tokens']:  # always sorted?
         token = data['documents'][0]['tokenList'][token_id - 1]
-        if token['text'].lower() == phrase:
-            tokens.append(token['id'])
+        token_start = token['characterOffsetBegin'] - sentence_offset
+        token_end = token['characterOffsetEnd'] - sentence_offset
+
+        if phrase_start >= token_start:
+            if phrase_end <= token_end:
+                tokens.append(token['id'])
+
     return tokens
