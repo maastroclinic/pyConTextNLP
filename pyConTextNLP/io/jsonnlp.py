@@ -1,5 +1,3 @@
-import json
-
 def get_sentences(data):
     return data['documents'][0]['sentences'].items()
 
@@ -96,9 +94,12 @@ def get_phrase_tokens(data, sentence, phrase, phrase_start, phrase_end):
         token_start = token['characterOffsetBegin'] - sentence_offset
         token_end = token['characterOffsetEnd'] - sentence_offset
 
-        if phrase_start >= token_start and phrase_start <= token_end:
+        if phrase_start >= token_start and phrase_start < token_end:
             tokens.append(token['id'])
-        elif phrase_end >= token_start and phrase_end <=token_end:
+        elif phrase_end > token_start and phrase_end <= token_end:
             tokens.append(token['id'])
+
+        if token_end > phrase_end:
+            return tokens
 
     return tokens
