@@ -91,14 +91,14 @@ def get_phrase_tokens(data, sentence, phrase, phrase_start, phrase_end):
     first_token_id = sentence['tokens'][0]
     first_token = data['documents'][0]['tokenList'][first_token_id - 1]
     sentence_offset = first_token['characterOffsetBegin']
-    in_range = False
     for token_id in sentence['tokens']:  # always sorted?
         token = data['documents'][0]['tokenList'][token_id - 1]
         token_start = token['characterOffsetBegin'] - sentence_offset
         token_end = token['characterOffsetEnd'] - sentence_offset
 
-        if phrase_start >= token_start:
-            if phrase_end <= token_end:
-                tokens.append(token['id'])
+        if phrase_start >= token_start and phrase_start <= token_end:
+            tokens.append(token['id'])
+        elif phrase_end >= token_start and phrase_end <=token_end:
+            tokens.append(token['id'])
 
     return tokens
