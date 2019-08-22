@@ -99,7 +99,7 @@ def get_phrase_tokens(data, sentence, phrase, phrase_start, phrase_end):
         elif phrase_end > token_start and phrase_end <= token_end:
             tokens.append(token['id'])
 
-        if token_end > phrase_end:
+        if token_end >= phrase_end:
             return tokens
 
     return tokens
