@@ -8,7 +8,6 @@ import os
 import warnings
 import re
 import pathlib
-import json
 import argparse
 import logging
 from flask import Flask
@@ -101,12 +100,14 @@ def get_target_documents_default(dto):
 
 
 def process_jsonnlp(data):
-    data['documents'][0]['context'] = []
-    for sentence in jsonnlp.get_sentences(data):
-        sentence_string = jsonnlp.get_sentence_string(data, sentence[1])
-        targets_document = targets #to implement based on entities? maybe it should be targets_sentence
+    document = data['documents'][0]
+    document['context'] = []
+    for sentence in jsonnlp.get_sentences(document):
+        sentence_string = jsonnlp.get_sentence_string(document, sentence[1])
+        targets_document = targets + jsonnlp.get_targets(document, sentence[1])
         results = utils.perform_py_context_nlp(modifiers, targets_document, sentence_string)
-        jsonnlp.add_sentence_results(data, sentence[1], results)
+        jsonnlp.add_sentence_results(document, sentence[1], results)
+    data['documents'][0] = document
     return data
 
 

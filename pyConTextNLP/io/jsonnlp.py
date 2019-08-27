@@ -1,45 +1,70 @@
-def get_sentences(data):
-    return data['documents'][0]['sentences'].items()
+import pyConTextNLP.io.conceptio as conceptio
 
 
-def get_sentence_string(data, sentence):
+def get_sentences(document):
+    return document['sentences'].items()
+
+
+def get_sentence_string(document, sentence):
     sentence_string = ''
-    for token in sentence['tokens']:
-        sentence_string += data['documents'][0]['tokenList'][token - 1]['text']
-        if data['documents'][0]['tokenList'][token - 1]['misc']['SpaceAfter']:
+    for token_id in sentence['tokens']:
+        sentence_string += document['tokenList'][token_id - 1]['text']
+        if document['tokenList'][token_id - 1]['misc']['SpaceAfter']:
             sentence_string += ' '
     return sentence_string
 
 
-# this does work, offset issues by new lines and other unknowns, spacy can sentence split on new line but currently
-# not configurable in microservice api
-# def get_sentence_string_offset(data, sentence):
-#     token_begin = sentence['tokens'][0]
-#     token_end = sentence['tokens'][-1]
-#
-#     offset_begin = data['documents'][0]['tokenList'][token_begin - 1]['characterOffsetBegin']
-#     offset_end = data['documents'][0]['tokenList'][token_end - 1]['characterOffsetEnd']
-#     text = data['documents'][0]['text']
-#     text = text.replace('\n', '')
-#     text = text[offset_begin:offset_end]
-#     return text
-
-
-def add_sentence_results(data, sentence, results):
+def add_sentence_results(document, sentence, results):
     context_list = []
-    start_id = len(data['documents'][0]['context']) + 1
+    start_id = len(document['context']) + 1
 
     for result in results:
-        context_list.append(get_result(result, False, data, sentence))
+        context_list.append(get_result(result, False, document, sentence))
     for list_item in context_list:
         for item in list_item:
             item.update({'id': start_id})
-            data['documents'][0]['context'].append(item)
-            start_id =+ 1
-    return data
+            document['context'].append(item)
+            document = update_tokens(document, item)
+            start_id += 1
+    return document
 
 
-def get_result(rslt, rule_info, data, sentence):
+def get_sentence_entity_phrases(document, sentence):
+    entity_types = ['PRODUCT', 'MEDICAL', 'QUANTITY']
+    phrases = []
+    entity_phrase = None
+    for token_id in sentence['tokens']:
+        token = document['tokenList'][token_id - 1]
+        if "B" is token['entity_iob'] and token['entity'] in entity_types:
+            entity_phrase = {'direction': '', 'lex': token['text'], 'regex': '', 'type': token['entity']}
+        if "I" is token['entity_iob'] and token['entity'] in entity_types:
+            entity_phrase.update({'text': entity_phrase['lex'] + ' ' + token['text']})
+        if "O" is token['entity_iob'] and entity_phrase:
+            phrases.append(entity_phrase)
+            entity_phrase = None
+
+    if entity_phrase:
+        phrases.append(entity_phrase)
+
+    return phrases
+
+
+def get_targets(document, sentence):
+    phrases = get_sentence_entity_phrases(document, sentence)
+    return conceptio.get_target_items(phrases)
+
+
+def update_tokens(document, item):
+    for i, token_id in enumerate(item['target']['tokens']):
+        current_token = document['tokenList'][token_id - 1]
+        current_token['entity_iob'] = 'B' if i == 0 else 'I'
+        current_token['entity'] = 'MEDICAL'
+        current_token['misc'].update({'UI': item['target']['category']})
+        document['tokenList'][token_id - 1] = current_token
+    return document
+
+
+def get_result(rslt, rule_info, document, sentence):
     node_result_list = []
     for node in rslt.nodes:
 
@@ -52,8 +77,7 @@ def get_result(rslt, rule_info, data, sentence):
         target['span_end'] = node._tagObject__spanEnd
         target['category'] = node._tagObject__category
 
-        tokens = get_phrase_tokens(data, sentence, node._tagObject__foundPhrase, node._tagObject__spanStart, node._tagObject__spanEnd)
-        print(tokens)
+        tokens = get_phrase_tokens(document, sentence, node._tagObject__foundPhrase, node._tagObject__spanStart, node._tagObject__spanEnd)
 
         context_item = {}
         context_item['target'] = {}
@@ -69,7 +93,7 @@ def get_result(rslt, rule_info, data, sentence):
                     modifier = {}
                     modifier['category'] = tag._tagObject__category
                     modifier['found_phrase'] = tag._tagObject__foundPhrase
-                    modifier['tokens'] = get_phrase_tokens(data, sentence, tag._tagObject__foundPhrase, tag._tagObject__spanStart, tag._tagObject__spanEnd)
+                    modifier['tokens'] = get_phrase_tokens(document, sentence, tag._tagObject__foundPhrase, tag._tagObject__spanStart, tag._tagObject__spanEnd)
                     if rule_info:
                         modifier['literal'] = tag._tagObject__item._contextItem__literal
                         modifier['re'] = tag._tagObject__item._contextItem__re
@@ -81,16 +105,16 @@ def get_result(rslt, rule_info, data, sentence):
     return node_result_list
 
 
-def get_phrase_tokens(data, sentence, phrase, phrase_start, phrase_end):
+def get_phrase_tokens(document, sentence, phrase, phrase_start, phrase_end):
     tokens = []
     if len(sentence['tokens']) is 0:
         return tokens
 
     first_token_id = sentence['tokens'][0]
-    first_token = data['documents'][0]['tokenList'][first_token_id - 1]
+    first_token = document['tokenList'][first_token_id - 1]
     sentence_offset = first_token['characterOffsetBegin']
     for token_id in sentence['tokens']:  # always sorted?
-        token = data['documents'][0]['tokenList'][token_id - 1]
+        token = document['tokenList'][token_id - 1]
         token_start = token['characterOffsetBegin'] - sentence_offset
         token_end = token['characterOffsetEnd'] - sentence_offset
 
