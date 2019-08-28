@@ -47,7 +47,7 @@ if os.environ.get('ENTITY_TYPES'):
     entity_types = os.environ.get('ENTITY_TYPES').split(',')
 else:
     entity_types = ['PRODUCT', 'ONTOLOGY']
-print('ENTITY_TYPES = ' + entity_types)
+print('ENTITY_TYPES = ', entity_types)
 
 
 def is_url(url):
@@ -110,7 +110,7 @@ def process_jsonnlp(data):
     document['context'] = []
     for sentence in jsonnlp.get_sentences(document):
         sentence_string = jsonnlp.get_sentence_string(document, sentence[1])
-        targets_document = targets + jsonnlp.get_targets(document, sentence[1])
+        targets_document = targets + jsonnlp.get_targets(document, sentence[1], entity_types)
         results = utils.perform_py_context_nlp(modifiers, targets_document, sentence_string)
         jsonnlp.add_sentence_results(document, sentence[1], results)
     data['documents'][0] = document
