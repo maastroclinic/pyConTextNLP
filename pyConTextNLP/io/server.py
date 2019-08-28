@@ -118,6 +118,7 @@ def process_jsonnlp(data):
 
 
 app = Flask(__name__)
+app.config["JSON_SORT_KEYS"] = False
 
 
 @app.route('/', methods=['GET', 'POST'])
