@@ -79,6 +79,7 @@ def get_result(rslt, rule_info, document, sentence):
         tokens = get_phrase_tokens(document, sentence, node._tagObject__foundPhrase, node._tagObject__spanStart, node._tagObject__spanEnd)
 
         context_item = {}
+        context_item['id'] = None
         context_item['target'] = {}
         context_item['target']['foundPhrase'] = node._tagObject__foundPhrase
         context_item['target']['tokens'] = tokens
