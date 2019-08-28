@@ -58,7 +58,7 @@ def update_tokens(document, item):
         current_token = document['tokenList'][token_id - 1]
         current_token['entity_iob'] = 'B' if i == 0 else 'I'
         current_token['entity'] = 'ONTOLOGY'
-        current_token['misc'].update({'URI': item['target']['category']})
+        current_token['misc'].update({'uri': item['target']['category']})
         document['tokenList'][token_id - 1] = current_token
     return document
 
