@@ -43,6 +43,12 @@ if os.environ.get('TARGETS'):
     args.targets = '' + os.environ.get('TARGETS')
     print('TARGETS as env = ' + args.targets)
 
+if os.environ.get('ENTITY_TYPES'):
+    entity_types = os.environ.get('ENTITY_TYPES').split(',')
+else:
+    entity_types = ['PRODUCT', 'ONTOLOGY']
+print('ENTITY_TYPES = ' + entity_types)
+
 
 def is_url(url):
     regex = re.compile(r'^(?:http|ftp)s?://', re.IGNORECASE)

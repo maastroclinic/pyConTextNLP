@@ -29,8 +29,7 @@ def add_sentence_results(document, sentence, results):
     return document
 
 
-def get_sentence_entity_phrases(document, sentence):
-    entity_types = ['PRODUCT', 'MEDICAL', 'QUANTITY']
+def get_sentence_entity_phrases(document, sentence, entity_types):
     phrases = []
     entity_phrase = None
     for token_id in sentence['tokens']:
@@ -49,8 +48,8 @@ def get_sentence_entity_phrases(document, sentence):
     return phrases
 
 
-def get_targets(document, sentence):
-    phrases = get_sentence_entity_phrases(document, sentence)
+def get_targets(document, sentence, entity_types):
+    phrases = get_sentence_entity_phrases(document, sentence, entity_types)
     return conceptio.get_target_items(phrases)
 
 
@@ -58,8 +57,8 @@ def update_tokens(document, item):
     for i, token_id in enumerate(item['target']['tokens']):
         current_token = document['tokenList'][token_id - 1]
         current_token['entity_iob'] = 'B' if i == 0 else 'I'
-        current_token['entity'] = 'MEDICAL'
-        current_token['misc'].update({'UI': item['target']['category']})
+        current_token['entity'] = 'ONTOLOGY'
+        current_token['misc'].update({'URI': item['target']['category']})
         document['tokenList'][token_id - 1] = current_token
     return document
 
