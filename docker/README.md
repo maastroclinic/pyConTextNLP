@@ -7,7 +7,14 @@ Targets can be provided in the TCP request, this enables the extraction of conte
 
 ## RUN REST (recommended)
 
-    $ docker run -p 5003:5003  -e 'TARGETS=https://raw.githubusercontent.com/putssander/medstruct-config/master/pycontextnlp_tnm_targets_en.yml' maastrodocker/pycontextnlp
+    $ docker run \
+      -p 5003:5003 \
+      -e 'TARGETS=https://raw.githubusercontent.com/putssander/medstruct-config/master/pycontextnlp_tnm_targets_nl.yml' \
+      -e 'MODIFIERS=https://raw.githubusercontent.com/putssander/medstruct-config/master/pycontextnlp_modifiers_nl.yml' \
+      maastrodocker/pycontextnlp
+
+
+GET [http://localhost:5003?text="Er is geen tumor aanwezig](http://localhost:5003?text="Er is geen tumor aanwezig)
 
 ## RUN (old)
     
