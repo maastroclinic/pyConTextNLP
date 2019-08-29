@@ -5,7 +5,11 @@ Run pyContextNLP as a micro-service and communicate over TCP.
 Targets can be provided in the TCP request, this enables the extraction of context for targets are extracted by a another approach (e.g. concept extractor QuickUMLS).
 
 
-## RUN
+## RUN REST (recommended)
+
+    $ docker run -p 5003:5003  -e 'TARGETS=https://raw.githubusercontent.com/putssander/medstruct-config/master/pycontextnlp_tnm_targets_en.yml' maastrodocker/pycontextnlp
+
+## RUN (old)
     
     $ docker run --rm -p 9999:9999 maastrodocker/pycontextnlp
             
@@ -80,7 +84,6 @@ JSON parameters:
     
 
 ### ISSUES
-
 
 #### Caching
 WARNING! Be aware of the following [issue](https://github.com/chapmanbe/pyConTextNLP/issues/13).
