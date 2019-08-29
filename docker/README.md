@@ -14,7 +14,7 @@ Targets can be provided in the TCP request, this enables the extraction of conte
       maastrodocker/pycontextnlp
 
 
-GET [http://localhost:5003?text="Er is geen tumor aanwezig](http://localhost:5003?text="Er is geen tumor aanwezig)
+GET [http://localhost:5003?text="Er is geen tumor aanwezig"](http://localhost:5003?text="Er is geen tumor aanwezig")
 
 ## RUN (old)
     
