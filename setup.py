@@ -1,13 +1,14 @@
 from setuptools import setup, find_packages  # Always prefer setuptools over distutils
 from codecs import open  # To use a consistent encoding
 from os import path
-import json
 
 version = {}
+here = path.abspath(path.dirname(__file__))
+
+
 with open(path.join("pyConTextNLP","version.py")) as f0:
     exec(f0.read(), version)
 print(version)
-here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
