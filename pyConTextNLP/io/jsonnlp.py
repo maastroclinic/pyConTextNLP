@@ -14,6 +14,20 @@ def get_sentence_string(document, sentence):
     return sentence_string
 
 
+def add_sentence_results_context(document, sentence, results, result_context):
+    context_list = []
+    start_id = len(result_context) + 1
+
+    for result in results:
+        context_list.append(get_result(result, False, document, sentence))
+    for list_item in context_list:
+        for item in list_item:
+            item.update({'id': start_id})
+            result_context.append(item)
+            document = update_tokens(document, item)
+            start_id += 1
+
+# should be replaced by method: add_sentence_results_context
 def add_sentence_results(document, sentence, results):
     context_list = []
     start_id = len(document['context']) + 1

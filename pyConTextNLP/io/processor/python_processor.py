@@ -1,18 +1,20 @@
-#!/opt/conda/bin/python
-# -*- coding: utf-8 -*-
-
-"""
-
-"""
+#!/usr/bin/env python
+import json
+import logging
+import os
 import os
 import warnings
 import re
 import pathlib
 import argparse
 import logging
-from flask import Flask
-from flask import request
-from flask import jsonify
+
+from kafka import KafkaConsumer, KafkaProducer
+
+from util.http_status_server import HttpHealthServer
+from util.task_args import get_kafka_binder_brokers, get_input_channel, get_output_channel
+
+from pyConTextNLP.io import jsonnlp
 
 import pyConTextNLP.io.conceptio as conceptio
 import pyConTextNLP.io.jsonnlp as jsonnlp
@@ -20,6 +22,21 @@ import pyConTextNLP.io.jsonnlp as jsonnlp
 import pyConTextNLP.itemData as itemData
 import pyConTextNLP.utils as utils
 
+
+logging.basicConfig()
+logger = logging.getLogger('python-processor')
+logger.setLevel(level=logging.INFO)
+
+print("ENV", os.environ, flush=True)
+
+consumer = KafkaConsumer(get_input_channel(), bootstrap_servers=[get_kafka_binder_brokers()])
+producer = KafkaProducer(bootstrap_servers=[get_kafka_binder_brokers()])
+HttpHealthServer.run_thread()
+
+
+# print("sleep", flush=True)
+# sleep(60)
+# print("awake", flush=True)
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 parser = argparse.ArgumentParser(description='Annotate your document with contextual information')
@@ -66,76 +83,39 @@ modifiers = itemData.get_items(args.modifiers)
 warnings.filterwarnings("ignore")
 
 
-def process(dto):
-    if 'meta' not in dto or 'DC.date' not in dto['meta']:
-        context_concepts = process_default(dto)
-        return context_concepts
-    else:
-        return process_jsonnlp(dto)
-
-
-def process_default(dto):
-    targets_document = get_target_documents_default(dto)
-    if 'text' not in dto:
-        raise ValueError("No key 'text' in given data")
-
-    text = dto['text']
-    results = utils.perform_py_context_nlp(modifiers, targets_document, text)
-    context_concepts = conceptio.get_results(results, rule_info=False)
-    logging.info('pyContextNLP annotated target size:{}'.format(len(context_concepts)))
-    return context_concepts
-
-
-def get_target_documents_default(dto):
-    concepts_context_items = None
-    if 'targets' in dto:
-        concepts = dto['targets']
-        concepts_context_items = conceptio.get_target_items(concepts)
-        logging.info('additional target input size:{0}'.format(len(concepts_context_items)))
-    else:
-        logging.info("no additional input target set")
-
-    if concepts_context_items:
-        targets_document = targets + concepts_context_items
-    else:
-        targets_document = targets
-
-    return targets_document
-
-
-def process_jsonnlp(data):
-    document = data['documents'][0]
-    document['context'] = []
+def process_json_nlp(document):
+    context_result = []
     for sentence in jsonnlp.get_sentences(document):
         sentence_string = jsonnlp.get_sentence_string(document, sentence[1])
         targets_document = targets + jsonnlp.get_targets(document, sentence[1], entity_types)
         results = utils.perform_py_context_nlp(modifiers, targets_document, sentence_string)
-        jsonnlp.add_sentence_results_context(document, sentence[1], results)
-    data['documents'][0] = document
-    return data
+        jsonnlp.add_sentence_results_context(document, sentence[1], results, context_result)
+    return document, context_result
 
 
-app = Flask(__name__)
-app.config["JSON_SORT_KEYS"] = False
+def is_json(unknown):
+    try:
+        json.loads(unknown)
+    except ValueError:
+        return False
+    logger.info('json')
+    return True
 
 
-@app.route('/', methods=['GET', 'POST'])
-def process_flask():
-    if request.method == 'GET':
-        content = {}
-        if 'text' not in request.url:
-            raise ValueError('You need to request param "text"')
-        content['text'] = request.args.get('text')
-    else:
-        content = request.get_json(silent=True)
-    return jsonify(process(content))
+while True:
+    for message in consumer:
+        data = json.loads(message.value.decode('utf-8'))
+        jsonnlp_document = data["json-nlp"]['documents'][0]
+        try:
+            jsonnlp_document, context_result = process_json_nlp(jsonnlp_document)
+            logger.info("results %s", str(context_result))
+            data['context'] = context_result
+            data["json-nlp"]['documents'][0] = jsonnlp_document
+        except Exception as e:
+            logger.error('error', e)
+
+        result_json = json.dumps(data)
+        producer.send(get_output_channel(), result_json.encode('utf-8'))
 
 
-@app.route('/json-nlp', methods=['GET', 'POST'])
-def process_flask_jsonnlp():
-    content = request.get_json(silent=True)
-    return jsonify(process_jsonnlp(content))
 
-
-if __name__ == "__main__":
-    app.run(debug=False, port=5003, host='0.0.0.0')
