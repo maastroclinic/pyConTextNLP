@@ -18,8 +18,10 @@ def add_sentence_results(document, sentence, results):
     context_list = []
     start_id = len(document['context']) + 1
 
+    text_blob_sentence_start = 0
     for result in results:
-        context_list.append(get_result(result, False, document, sentence))
+        context_list.append(get_result(result, False, document, sentence, text_blob_sentence_start))
+        text_blob_sentence_start = result.graph['__scope'][1]
     for list_item in context_list:
         for item in list_item:
             item.update({'id': start_id})
@@ -34,11 +36,11 @@ def get_sentence_entity_phrases(document, sentence, entity_types):
     entity_phrase = None
     for token_id in sentence['tokens']:
         token = document['tokenList'][token_id - 1]
-        if "B" is token['entity_iob'] and token['entity'] in entity_types:
+        if "B" == token['entity_iob'] and token['entity'] in entity_types:
             entity_phrase = {'direction': '', 'lex': token['text'], 'regex': '', 'type': token['entity']}
-        if "I" is token['entity_iob'] and token['entity'] in entity_types:
+        if "I" == token['entity_iob'] and token['entity'] in entity_types:
             entity_phrase.update({'text': entity_phrase['lex'] + ' ' + token['text']})
-        if "O" is token['entity_iob'] and entity_phrase:
+        if "O" == token['entity_iob'] and entity_phrase:
             phrases.append(entity_phrase)
             entity_phrase = None
 
@@ -63,7 +65,7 @@ def update_tokens(document, item):
     return document
 
 
-def get_result(rslt, rule_info, document, sentence):
+def get_result(rslt, rule_info, document, sentence, text_blob_sentence_start):
     node_result_list = []
     for node in rslt.nodes:
 
@@ -71,12 +73,11 @@ def get_result(rslt, rule_info, document, sentence):
             continue
 
         target = {}
-        target['span_start'] = node._tagObject__spanStart
-        target['span_end'] = node._tagObject__spanEnd
-        target['span_end'] = node._tagObject__spanEnd
+        target['span_start'] = node._tagObject__spanStart + text_blob_sentence_start
+        target['span_end'] = node._tagObject__spanEnd + text_blob_sentence_start
         target['category'] = node._tagObject__category
 
-        tokens = get_phrase_tokens(document, sentence, node._tagObject__foundPhrase, node._tagObject__spanStart, node._tagObject__spanEnd)
+        tokens = get_phrase_tokens(document, sentence, node._tagObject__foundPhrase, target['span_start'], target['span_end'])
 
         context_item = {}
         context_item['id'] = None
@@ -107,7 +108,7 @@ def get_result(rslt, rule_info, document, sentence):
 
 def get_phrase_tokens(document, sentence, phrase, phrase_start, phrase_end):
     tokens = []
-    if len(sentence['tokens']) is 0:
+    if len(sentence['tokens']) == 0:
         return tokens
 
     first_token_id = sentence['tokens'][0]
