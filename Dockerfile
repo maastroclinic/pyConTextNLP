@@ -4,10 +4,9 @@ MAINTAINER Sander Puts
 COPY requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip install -r requirements.txt
-RUN python -m textblob.download_corpora
 
 COPY . / /app/
-WORKDIR /app
+RUN python -m download_corpora
 
 ENV OPTIONAL_ARGS=''
 ENV PYTHONPATH "${PYTHONPATH}:/app"
